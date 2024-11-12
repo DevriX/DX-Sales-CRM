@@ -21,11 +21,11 @@ global $dx_crm_model, $dx_crm_report;
  * Determine which vertical tab is currently active
  *
 */ 
-$activetab = isset($_GET['type']) ? $_GET['type'] : 'general' ;
+$activetab = isset( $_GET['type'] ) ? sanitize_text_field( $_GET['type'] ) : 'general';
+$post_type = ( ! empty( $_GET['post_type'] ) ) ? sanitize_text_field( $_GET['post_type'] ) : '';
+$page      = ( ! empty( $_GET['page'] ) ) ? sanitize_text_field( $_GET['page'] ) : '';
+$tab       = ( ! empty( $_GET['tab'] ) ) ? sanitize_text_field( $_GET['tab'] ) : '';
 
-$post_type 	= ( !empty( $_GET['post_type'] ) ) ? $_GET['post_type'] : '' ;
-$page 		= ( !empty( $_GET['page'] ) ) ? $_GET['page'] : '' ;
-$tab		= ( !empty( $_GET['tab'] ) ) ? $_GET['tab'] : '' ;
 
 $exportcsvurl = add_query_arg( 
 					array( 
