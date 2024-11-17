@@ -2,11 +2,11 @@
 /*
 Plugin Name: DX Sales CRM
 Description: DX Sales CRM - is a WordPress solution for Costumer Relationship Management system. Manage your ENTIRE business in your WordPress Dashboard. It is easy to setup and powerful solution for WordPress CMS.
-Version: 1.0.0
+Version: 1.1
 Author: DevriX
 Text Domain: dxcrm
 Domain Path: /includes/languages
-Author URI: http://devrix.com
+Author URI: https://devrix.com
 */
 
 // Exit if accessed directly
