@@ -1,11 +1,12 @@
 ﻿=== DX Sales CRM ===
-Tags: crm, wp crm, customer relationship management, sales, customers, users
-Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.0
+Tags: crm, wp crm, customer relationship management, sales, customers
+Requires at least: 5.9
+Tested up to: 6.7
+Stable tag: 1.1
+Requires PHP: 7.4
 Author: DevriX
 License: GPLv2 or later
-Author URI: http://devrix.com
+Author URI: https://devrix.com
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Contributors: devrix, nofearinc, rollybueno
 
@@ -87,7 +88,14 @@ A: Our Sales CRM system comes out of the box with marketing automation, client a
 3. The most important information from the Projects and the Customers is listed and easily reached
 4. You can create Reports and export them as CSV
 
+== Upgrade Notice ==
+The plugin is ownership of DevriX. We are going to work on a few versions, adding some nice features in the near feature, stay tuned! :)
+
 == Changelog ==
+
+= 1.1 =
+* Fixing security issues
+* Tested up with WordPress 6.7
 
 = 1.0.0 =
 Initial version
