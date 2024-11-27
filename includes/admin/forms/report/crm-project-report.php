@@ -103,7 +103,7 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			/* Display table */
 			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report_type'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report_type'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -157,7 +157,7 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			?>
 			<script>
 				jQuery(document).ready(function() {
@@ -191,7 +191,7 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			/* Display table */
 			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">' ;
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $args['dx_crm_report'] . '&type=' . $args['dx_crm_report_type'] . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $args['dx_crm_report'] ) . '&type=' . esc_html( $args['dx_crm_report_type'] ) . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -245,7 +245,7 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 		}
 	} else {
 		/** 
@@ -277,7 +277,7 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			// Display table
 			$html = '<div id="report-table"><h2>' . __( 'By Project Price Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -322,12 +322,12 @@ if( isset( $_POST['project-nonce-report'] ) && ! wp_verify_nonce( $_POST['projec
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			?>
 			<script>
 				jQuery(document).ready(function() {
 				   jQuery('.dx-crm-report-table-result').DataTable({
-					   "order": [[ 1, "<?php echo strtolower( $_POST['agreed_cost_sort'] ); ?>" ]]
+					   "order": [[ 1, "<?php echo esc_html( strtolower( $_POST['agreed_cost_sort'] ) ); ?>" ]]
 				   });
 				} );
 			</script>

@@ -64,8 +64,8 @@ $activetab = isset($_GET['type']) ? $_GET['type'] : 'general' ;
 		</td>
 		<td valign ="top">
 		<?php
-			echo '<div class="report-tab-content" id="'.$activetab.'">';
-				include_once( DX_CRM_ADMIN_DIR.'/forms/report/sub-forms/crm-customer-' . $activetab . '-report.php' );
+			echo '<div class="report-tab-content" id="'. esc_html( $activetab ) . '">';
+				include_once( DX_CRM_ADMIN_DIR.'/forms/report/sub-forms/crm-customer-' . esc_html( $activetab ) . '-report.php' );
 		 	echo '</div>';
 		?>
 		</td>
@@ -121,8 +121,8 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			/* Display table */
 			$html = '<div id="report-table"><h2>' . __( 'General Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">
-						<a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report_type'] . '" class="button button-primary">' . __( 'New Report' , 'dxcrm' ) . '</a>';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report_type'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+						<a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report_type'] ) . '" class="button button-primary">' . __( 'New Report' , 'dxcrm' ) . '</a>';
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report_type'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -172,7 +172,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 		} else {
 			/** Throw admin notice */
 			do_action( 'wp_settings_admin_notices', $dx_crm_report->crm_rprt_err_ntc() );
@@ -196,7 +196,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			/** Display table */
 			$html = '<div id="report-table"><h2>' . __( 'General Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">' ;
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $args['dx_crm_report'] . '&type=' . $args['dx_crm_report_type'] . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $args['dx_crm_report'] ) . '&type=' . esc_html( $args['dx_crm_report_type'] ) . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -246,7 +246,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 		}
 	} else {
 		/** 
@@ -281,7 +281,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			/** Display table */
 			$html = '<div id="report-table"><h2>' . __( 'By Largest Income Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -323,7 +323,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			?>
 			<script>
 				jQuery(document).ready(function() {
@@ -355,7 +355,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			/** Display table */
 			$html = '<div id="report-table"><h2>' . __( 'By Largest Project Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 					</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -397,12 +397,12 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			?>
 			<script>
 				jQuery(document).ready(function() {
 				   jQuery('.dx-crm-report-table-result').DataTable({
-						"order": [[ 1, "<?php echo strtolower( $_POST['total_project'] ); ?>" ]]
+						"order": [[ 1, "<?php echo esc_html( strtolower( $_POST['total_project'] ) ); ?>" ]]
 				   });
 				} );
 			</script>

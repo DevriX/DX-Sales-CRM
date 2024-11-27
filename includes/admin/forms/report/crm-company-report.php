@@ -107,7 +107,7 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 			/* Display table */
 			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr"><a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=company" class="button button-primary">' . __( 'New Report' , 'dxcrm' ) . '</a>';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $_POST['dx_crm_report'] . '&type=' . $_POST['dx_crm_report'] . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 						</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -162,7 +162,7 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			// Throw success message
 			$dx_crm_report->crm_rprt_sccss_ntc(); 
 			
@@ -187,7 +187,7 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 			/* Display table */
 			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . $args['dx_crm_report'] . '&type=' . $args['dx_crm_report'] . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $args['dx_crm_report'] ) . '&type=' . esc_html( $args['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 						</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
@@ -241,7 +241,7 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 			$html .= '</table>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 		}
 	} else {
 		/** 

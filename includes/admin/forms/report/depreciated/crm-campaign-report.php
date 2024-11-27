@@ -18,9 +18,9 @@ if ( !current_user_can( 'administrator' ) ){
 
 global $dx_crm_model, $dx_crm_report;
 
-$post_type 	= ( !empty( $_GET['post_type'] ) ) ? $_GET['post_type'] : '' ;
-$page 		= ( !empty( $_GET['page'] ) ) ? $_GET['page'] : '' ;
-$tab		= ( !empty( $_GET['tab'] ) ) ? $_GET['tab'] : '' ;
+$post_type 	= ( !empty( $_GET['post_type'] ) ) ? sanitize_text_field( $_GET['post_type'] ) : '' ;
+$page 		= ( !empty( $_GET['page'] ) ) ? sanitize_text_field( $_GET['page'] ) : '' ;
+$tab		= ( !empty( $_GET['tab'] ) ) ? sanitize_text_field( $_GET['tab'] ) : '' ;
 
 $exportcsvurl = add_query_arg( 
 					array( 
@@ -99,7 +99,7 @@ if( !empty ( $_POST['dx_crm_report'] ) && $_POST['dx_crm_report'] == "campaign" 
 		$html .= '</table>';
 		$html .= '</div>';
 		
-		echo $html;
+		echo wp_kses_post( $html );
 		?>
 		<script>
 			jQuery(document).ready(function() {
@@ -142,7 +142,7 @@ showform:
 						 * Contact Type
 						*/
 						foreach( $cmpgn_cntct_type as $key => $ctype ){
-							echo '<option value="' . $key . '">' . $ctype . '</option>';
+							echo '<option value="' . esc_html( $key ) . '">' . esc_html( $ctype ) . '</option>';
 						}
 					?>
 				</select>
