@@ -242,8 +242,8 @@ class Dx_Crm_Model{
 			$prep = $wpdb->prepare( $query,
 									DX_CRM_META_PREFIX . 'project_total',
 									DX_CRM_META_PREFIX . 'joined_project',
-									$queryargs['post_type'],
-									$queryargs['post_status']
+									esc_html( $queryargs['post_type'] ),
+									esc_html( $queryargs['post_status'] )
 								  );
 
 			// set the order/sort and page params
@@ -389,7 +389,7 @@ class Dx_Crm_Model{
 			
 			$cstmrs = '<select name ="' . $nid . $n_arr . '" id="' . $nid . '" ' . $multi . ' class="' . $cselect . '">';
 				foreach ( $cmpgn_cstmrs as $cstmr ) {
-					$cstmrs .= '<option value="' . $cstmr->post_title . '">' . $cstmr->post_title . '</option>';
+					$cstmrs .= '<option value="' . esc_html( $cstmr->post_title ) . '">' . esc_html( $cstmr->post_title ) . '</option>';
 				}
 			$cstmrs .= '</select>';
 			
@@ -767,7 +767,7 @@ class Dx_Crm_Model{
 			$cmpny_type = '<select name ="' . $nid . $n_arr . '" id="' . $nid . '" ' . $multi . ' class="' . $cselect . '">';
 			$cmpny_type .= '<option value="">' . __( 'Please select..' , 'dxcrm' ) . '</option>';	
 				foreach ( $cmpny_types as $key => $value ) {
-					$cmpny_type .= '<option value="' . $key . '">' . $value . '</option>';
+					$cmpny_type .= '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
 				}			
 			$cmpny_type .= '</select>';
 		}else{
@@ -1285,7 +1285,7 @@ class Dx_Crm_Model{
 		$html .= wp_nonce_field( 'activity-log-filter', 'filter-nonce-activity-log' );	
 		$html .= '</form>';
 		
-		echo $html;
+		echo wp_kses_post( $html );
 	} 
 
 	/** 
@@ -1307,7 +1307,7 @@ class Dx_Crm_Model{
 		$html .= '</div>';
 		$html .= '</form>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 	
 	
