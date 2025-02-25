@@ -407,8 +407,8 @@ function dx_crm_export_to_csv(){
 		
 		// Output to browser with appropriate mime type, you choose ;)
 		header("Content-type: text/x-csv");
-		header("Content-Disposition: attachment; filename=".$crm_file_name.".csv");
-		echo $exports;
+		header("Content-Disposition: attachment; filename=" . sanitize_file_name($crm_file_name . ".csv"));
+		echo esc_html($exports);
 		exit;
 		
 	}

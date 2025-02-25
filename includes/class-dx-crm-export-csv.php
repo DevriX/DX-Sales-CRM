@@ -249,9 +249,10 @@ class Dx_Crm_Export_Csv {
 	private function output_csv( $export, $filename ) {
 		
 		header( 'Content-type: text/x-csv' );
-		header( 'Content-Disposition: attachment; filename=' . $filename . date( 'd-m-Y' ) . '.csv' );
+		header( 'Content-Disposition: attachment; filename=' . sanitize_file_name( $filename . gmdate( 'd-m-Y' ) . '.csv' ) );
 
-		echo $export;
+		// Escape the CSV data
+		echo esc_html( $export );
 
 		exit;
 

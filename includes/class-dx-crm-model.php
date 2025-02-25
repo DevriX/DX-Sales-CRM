@@ -915,12 +915,12 @@ class Dx_Crm_Model{
 		$month = ( ! empty ( $_POST['month'] ) && wp_verify_nonce( $_POST['filter-nonce-activity-log'], 'activity-log-filter' ) ) ? $_POST['month'] : '';
 		$crm_roadmap_months = $dx_crm_roadmap->get_crm_roadmap_months();
 		$html = '<select name="month" id="filter-by-date">';
-		$html .= '<option selected="selected" value="">' . __( 'All Months', 'dxcrm' ) . '</option>';
-		foreach( $crm_roadmap_months as $roadmap_month ) {
-			if( $month === $roadmap_month ){
-				$html .='<option selected="selected" value="' . $roadmap_month . '">'. $roadmap_month .'</option>';
+		$html .= '<option selected="selected" value="">' . esc_html__('All Months', 'dxcrm') . '</option>';
+		foreach($crm_roadmap_months as $roadmap_month) {
+			if($month === $roadmap_month) {
+				$html .= '<option selected="selected" value="' . esc_attr($roadmap_month) . '">' . esc_html($roadmap_month) . '</option>';
 			} else {
-				$html .='<option value="'. $roadmap_month.'">' . $roadmap_month . '</option>';
+				$html .= '<option value="' . esc_attr($roadmap_month) . '">' . esc_html($roadmap_month) . '</option>';
 			}
 		}
 		$html .= '</select>';
