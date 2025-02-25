@@ -53,21 +53,21 @@ if( !empty ( $_POST['dx_crm_report'] ) && $_POST['dx_crm_report'] == "campaign" 
 	if( !empty ( $data ) ){
 				
 		// Display table
-		$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
-		$html .= '<span class="dx-crm-bttn-hldr"><a href="edit.php?post_type=' . DX_CRM_POST_TYPE_ROADMAP . '&page=dx-crm-stat-setting&tab=campaign" class="button button-primary">' . __( 'New Report' , 'dxcrm' ) . '</a></span>';
+		$html = '<div id="report-table"><h2>' . esc_html__( 'Query Result' , 'dxcrm' ) . '</h2>';
+		$html .= '<span class="dx-crm-bttn-hldr"><a href="edit.php?post_type=' . DX_CRM_POST_TYPE_ROADMAP . '&page=dx-crm-stat-setting&tab=campaign" class="button button-primary">' . esc_html__( 'New Report' , 'dxcrm' ) . '</a></span>';
 		$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 			$html .= '<thead>';
 					$html .= '	<tr>';
-						$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-						$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-						$html .= '	<th>' . __( 'Customers' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Customers' , 'dxcrm' ) . '</th>';
 					$html .= '	</tr>';
 				$html .= '	</thead>';
 				$html .= '	<tfoot>';
 					$html .= '	<tr>';
-						$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-						$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-						$html .= '	<th>' . __( 'Customers' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+						$html .= '	<th>' . esc_html__( 'Customers' , 'dxcrm' ) . '</th>';
 					$html .= '	</tr>';
 				$html .= '	</tfoot>';
 				$html .= '<tbody>';		
@@ -124,8 +124,8 @@ if( !empty ( $_POST['dx_crm_report'] ) && $_POST['dx_crm_report'] == "campaign" 
 showform: 
 
 ?>	
-<h2><?php _e( 'Campaign Filters' , 'dxcrm' );?></h2>
-<p><?php _e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
+<h2><?php esc_html_e( 'Campaign Filters' , 'dxcrm' );?></h2>
+<p><?php esc_html_e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
 
 <form action="" method="post" id="crm-project-form">
 	
@@ -134,7 +134,7 @@ showform:
 	<table border="0" class="aligncenter" width="100%" id="dx-crm-report-table">
 		<tr>
 		
-			<td><?php _e( 'Contact Type' , 'dxcrm' );?>:</td>
+			<td><?php esc_html_e( 'Contact Type' , 'dxcrm' );?>:</td>
 			<td>
 				<select name = "contact_type" id = "contact_type" class="chosen-select">
 					<?php
@@ -148,13 +148,16 @@ showform:
 				</select>
 			</td>
 			
-			<td><?php _e( 'Customers' , 'dxcrm' );?>:</td>
-			<td><?php echo $dx_crm_model->crm_customer_dropdown('customers'); ?></td>
+			<td><?php esc_html_e( 'Customers' , 'dxcrm' );?>:</td>
+			<td><?php 
+			// We already escaped it on crm_customer_dropdown
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $dx_crm_model->crm_customer_dropdown('customers'); ?></td>
 			
 		</tr>
 	</table>
 	
-	<input type="submit" class="button button-primary" name="submit" value="<?php _e( 'Generate Report' , 'dxcrm' );?>" />
+	<input type="submit" class="button button-primary" name="submit" value="<?php esc_html_e( 'Generate Report' , 'dxcrm' );?>" />
 </form>
 <?php
 }
