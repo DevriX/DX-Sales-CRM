@@ -15,8 +15,8 @@ $exportcsvurl = add_query_arg(
 				);
 ?>
 <div id="primary" class="site-content dx-crm-report">
-<h2><?php _e( 'Company Filters' , 'dxcrm' );?></h2>
-<p><?php _e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
+<h2><?php esc_html_e( 'Company Filters' , 'dxcrm' );?></h2>
+<p><?php esc_html_e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
 
 <form action="" method="post" id="crm-compani-form" class="crm-company-form form-dx-crm-report">
 	
@@ -28,20 +28,32 @@ $exportcsvurl = add_query_arg(
 	<table border="0" class="aligncenter" id="dx-crm-report-table">
 		<tr>
 		
-			<td><?php _e( 'Company Type' , 'dxcrm' );?>:</td>
-			<td><?php echo $dx_crm_model->crm_company_type_dropdown('company_type',false); ?></td>
+			<td><?php esc_html_e( 'Company Type' , 'dxcrm' );?>:</td>
+			<td><?php 
+			// We already escaped it on crm_company_type_dropdown
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $dx_crm_model->crm_company_type_dropdown('company_type',false); ?></td>
 			
-			<td><?php _e( 'Industry' , 'dxcrm' );?>:</td>
-			<td><?php echo $dx_crm_model->crm_company_industry_dropdown('company_industry', false); ?></td>
+			<td><?php esc_html_e( 'Industry' , 'dxcrm' );?>:</td>
+			<td><?php 
+			// We already escaped it on crm_company_industry_dropdown
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $dx_crm_model->crm_company_industry_dropdown('company_industry', false); ?></td>
 			
 		</tr>
 		<tr>
 		
-			<td><?php _e( 'Employees' , 'dxcrm' );?>:</td>
-			<td><?php echo $dx_crm_model->crm_company_employees_dropdown('company_employees',false); ?></td>
+			<td><?php esc_html_e( 'Employees' , 'dxcrm' );?>:</td>
+			<td><?php 
+			// We already escaped it on crm_company_employees_dropdown
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $dx_crm_model->crm_company_employees_dropdown('company_employees',false); ?></td>
 			
-			<td><?php _e( 'Currency' , 'dxcrm' );?>:</td>
-			<td><?php echo $dx_crm_model->crm_currency_dropdown( 'currency', false ); ?></td>
+			<td><?php esc_html_e( 'Currency' , 'dxcrm' );?>:</td>
+			<td><?php 
+			// We already escaped it on crm_currency_dropdown
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $dx_crm_model->crm_currency_dropdown( 'currency', false ); ?></td>
 			
 		</tr>
 		<tr>
@@ -51,9 +63,12 @@ $exportcsvurl = add_query_arg(
 				*/
 				if( current_user_can( 'administrator' ) ){
 			?>
-			<td><?php _e( 'Customers' , 'dxcrm' );?>:</td>
+			<td><?php esc_html_e( 'Customers' , 'dxcrm' );?>:</td>
 			<td>
-				<?php echo $dx_crm_model->crm_customer_dropdown('company_assign_customer'); ?>
+				<?php 
+				// We already escaped it on crm_customer_dropdown
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $dx_crm_model->crm_customer_dropdown('company_assign_customer'); ?>
 			</td>
 			<?php
 				}
@@ -67,7 +82,7 @@ $exportcsvurl = add_query_arg(
 
 	<?php wp_nonce_field( 'report-company-nonce', 'company-nonce-report' );	?>
 	
-	<input type="submit" class="button button-primary" name="submit" value="<?php _e( 'Generate Report' , 'dxcrm' );?>" />
+	<input type="submit" class="button button-primary" name="submit" value="<?php esc_attr_e( 'Generate Report' , 'dxcrm' );?>" />
 	
 </form>
 <?php 
@@ -105,27 +120,27 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 		if( ! empty ( $data ) ){
 
 			/* Display table */
-			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
-			$html .= '<span class="dx-crm-bttn-hldr"><a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=company" class="button button-primary">' . __( 'New Report' , 'dxcrm' ) . '</a>';
-			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
+			$html = '<div id="report-table"><h2>' . esc_html__( 'Query Result' , 'dxcrm' ) . '</h2>';
+			$html .= '<span class="dx-crm-bttn-hldr"><a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=company" class="button button-primary">' . esc_html__( 'New Report' , 'dxcrm' ) . '</a>';
+			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $_POST['dx_crm_report'] ) . '&type=' . esc_html( $_POST['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($_POST) . '" class="button button-primary">' . esc_html__( 'Export as CSV' , 'dxcrm' ) . '</a>
 						</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
 						$html .= '	<tr>';
-							$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Industry' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Employees' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Currency' , 'dxcrm' ) . '</th>';	
+							$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Industry' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Employees' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Currency' , 'dxcrm' ) . '</th>';	
 						$html .= '	</tr>';
 					$html .= '	</thead>';
 					$html .= '	<tfoot>';
 						$html .= '	<tr>';
-							$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Industry' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Employees' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Currency' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Industry' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Employees' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Currency' , 'dxcrm' ) . '</th>';
 						$html .= '	</tr>';
 					$html .= '	</tfoot>';
 					$html .= '<tbody>';		
@@ -185,27 +200,27 @@ if( isset( $_POST['company-nonce-report'] ) && ! wp_verify_nonce( $_POST['compan
 		*/
 		if( ! empty ( $is_default ) ){
 			/* Display table */
-			$html = '<div id="report-table"><h2>' . __( 'Query Result' , 'dxcrm' ) . '</h2>';
+			$html = '<div id="report-table"><h2>' . esc_html__( 'Query Result' , 'dxcrm' ) . '</h2>';
 			$html .= '<span class="dx-crm-bttn-hldr">';
 			$html .= ' <a href="admin.php?page=' . DX_CRM_DASHBOARD . '&page=dx-crm-stat-setting&tab=' . esc_html( $args['dx_crm_report'] ) . '&type=' . esc_html( $args['dx_crm_report'] ) . '&generate_csv=1&' . http_build_query($args) . '" class="button button-primary">' . __( 'Export as CSV' , 'dxcrm' ) . '</a>
 						</span>';
 			$html .= '<table id="customer_report" class="display dx-crm-report-table-result" cellspacing="0" width="100%">';
 				$html .= '<thead>';
 						$html .= '	<tr>';
-							$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Industry' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Employees' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Currency' , 'dxcrm' ) . '</th>';	
+							$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Industry' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Employees' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Currency' , 'dxcrm' ) . '</th>';	
 						$html .= '	</tr>';
 					$html .= '	</thead>';
 					$html .= '	<tfoot>';
 						$html .= '	<tr>';
-							$html .= '	<th>' . __( 'Name' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Type' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Industry' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Employees' , 'dxcrm' ) . '</th>';
-							$html .= '	<th>' . __( 'Currency' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Name' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Type' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Industry' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Employees' , 'dxcrm' ) . '</th>';
+							$html .= '	<th>' . esc_html__( 'Currency' , 'dxcrm' ) . '</th>';
 						$html .= '	</tr>';
 					$html .= '	</tfoot>';
 					$html .= '<tbody>';		
