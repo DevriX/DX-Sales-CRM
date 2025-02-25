@@ -271,7 +271,7 @@ class Dx_Crm_Export_Csv {
 	*/
 	private function error_notice() {
 
-		echo '<div id="message" class="error notice is-dismissible"><p>' . __( 'Wrong report criteria or something went wrong! Try again.', 'dxcrm' ) . '</p></div>';	
+		echo '<div id="message" class="error notice is-dismissible"><p>' . esc_html__('Wrong report criteria or something went wrong! Try again.', 'dxcrm') . '</p></div>';	
 
 	}
 

@@ -1275,14 +1275,14 @@ class Dx_Crm_Model{
 		
 		$html = '<form method="post">';
 		$html .= '<div class="actions">';
-		$html .= '<input type="hidden" name="page" value='.$page.'>';
-		$html .= '<label for="filter-by-date" class="screen-reader-text">' . __( 'Filter by date', 'dxcrm' ) . '</label>';
+		$html .= '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+		$html .= '<label for="filter-by-date" class="screen-reader-text">' . esc_html__('Filter by date', 'dxcrm') . '</label>';
 		$html .= $this->dx_crm_roadmap_months_dropdown();
-		$html .= '<label class="screen-reader-text" for="users">' . __( 'Filter by users', 'dxcrm' ) . '</label>';
-		$html .= wp_dropdown_users( array( 'echo' => 0, 'show_option_none' => __( 'All users', 'dxcrm' ), 'option_none_value'=>'', 'selected' => $selected ) );
-		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . __( 'Filter', 'dxcrm' ) . '">';
+		$html .= '<label class="screen-reader-text" for="users">' . esc_html__('Filter by users', 'dxcrm') . '</label>';
+		$html .= wp_dropdown_users(array('echo' => 0, 'show_option_none' => esc_html__('All users', 'dxcrm'), 'option_none_value'=>'', 'selected' => $selected));
+		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . esc_attr__('Filter', 'dxcrm') . '">';
 		$html .= '</div>';
-		$html .= wp_nonce_field( 'activity-log-filter', 'filter-nonce-activity-log' );	
+		$html .= wp_nonce_field('activity-log-filter', 'filter-nonce-activity-log');	
 		$html .= '</form>';
 		
 		echo wp_kses_post( $html );
@@ -1299,11 +1299,11 @@ class Dx_Crm_Model{
 
 		$html = '<form method="post">';
 		$html .= '<div class="actions">';
-		$html .= '<input type="hidden" name="page" value='.$page.'>';
-		$html .= '<label class="screen-reader-text" for="users">' . __( 'Search', 'dxcrm' ) . '</label>';
-		$html .= '<input type="text" name="s" placeholder="' . __( 'Search', 'dxcrm' ) . '">';
-		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . __( 'Search', 'dxcrm' ) . '">';
-		$html .= wp_nonce_field( 'activity-log-search', 'search-nonce-activity-log' );	
+		$html .= '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+		$html .= '<label class="screen-reader-text" for="users">' . esc_html__('Search', 'dxcrm') . '</label>';
+		$html .= '<input type="text" name="s" placeholder="' . esc_attr__('Search', 'dxcrm') . '">';
+		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . esc_attr__('Search', 'dxcrm') . '">';
+		$html .= wp_nonce_field('activity-log-search', 'search-nonce-activity-log');	
 		$html .= '</div>';
 		$html .= '</form>';
 

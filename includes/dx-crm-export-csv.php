@@ -483,7 +483,7 @@ function dx_crm_get_names( $ids ) {
  *
 */
 function dx_crm_rprt_err_ntc(){
-	 echo '<div id="message" class="error notice is-dismissible"><p>' . __( 'No report matched your criteria. Please try again!', 'dxcrm' ) . '</p></div>';
+	echo '<div id="message" class="error notice is-dismissible"><p>' . esc_html__('No report matched your criteria. Please try again!', 'dxcrm') . '</p></div>';
 }
 
 /**
@@ -492,6 +492,6 @@ function dx_crm_rprt_err_ntc(){
  *
 */
 function dx_crm_rprt_sccss_ntc(){
-	echo '<div class="updated notice is-dismissable"><p>' . __( 'Report successfully generated!', 'dxcrm' ) . '</p></div>';
+	echo '<div class="updated notice is-dismissable"><p>' . esc_html__('Report successfully generated!', 'dxcrm') . '</p></div>';
 }
 ?>
