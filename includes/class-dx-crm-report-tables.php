@@ -1445,7 +1445,7 @@ class Dx_Crm_Report_Tables{
 			$result = "error";
 		}
 		
-		wp_die( $result );
+		wp_die( esc_html($result) );
 	}
 	
 	
@@ -1454,8 +1454,8 @@ class Dx_Crm_Report_Tables{
 	 * Display error message if no query found
 	 *
 	*/
-	function crm_rprt_err_ntc(){
-		echo '<div class="error notice is-dismissible"><p>' . __( 'No report matched your criteria. Please try again!', 'dxcrm' ) . '</p></div>';
+	function crm_rprt_err_ntc() {
+		echo '<div class="error notice is-dismissible"><p>' . esc_html__( 'No report matched your criteria. Please try again!', 'dxcrm' ) . '</p></div>';
 	}
 
 	/**
@@ -1463,8 +1463,8 @@ class Dx_Crm_Report_Tables{
 	 * Display info if query found
 	 *
 	*/
-	function crm_rprt_sccss_ntc(){
-		echo '<div class="updated notice is-dismissible"><p>' . __( 'Report successfully generated!', 'dxcrm' ) . '</p></div>';
+	function crm_rprt_sccss_ntc() {
+		echo '<div class="updated notice is-dismissible"><p>' . esc_html__( 'Report successfully generated!', 'dxcrm' ) . '</p></div>';
 	}
 	
 	/**
