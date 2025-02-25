@@ -41,7 +41,7 @@ class Dx_Crm_Admin{
 	 * @since 1.0.0
 	 */
 	function dx_crm_dashboard_admin_menu() {	
-		$dx_crm_dashboard_settings_menu = add_menu_page( __( 'Sales CRM Dashboard', 'dxcrm' ), __( 'Sales CRM','dxcrm' ), 'manage_crm', DX_CRM_DASHBOARD, array( $this, 'dx_crm_dashboard_settings' ), DX_CRM_IMG_URL . 'Sales_CRM_hover.png', 25 );
+		$dx_crm_dashboard_settings_menu = add_menu_page( esc_html__( 'Sales CRM Dashboard', 'dxcrm' ), esc_html__( 'Sales CRM','dxcrm' ), 'manage_crm', DX_CRM_DASHBOARD, array( $this, 'dx_crm_dashboard_settings' ), DX_CRM_IMG_URL . 'Sales_CRM_hover.png', 25 );
 		add_action( "admin_head-$dx_crm_dashboard_settings_menu", array( $this->scripts, 'crm_dashboard_postboxes_toggle_scripts' ) );
 		add_action( "admin_footer-$dx_crm_dashboard_settings_menu", array($this, 'dx_crm_dashboard_popup' ) );		
 	}
@@ -58,8 +58,8 @@ class Dx_Crm_Admin{
 		if( current_user_can( 'administrator' ) ){		
 			add_submenu_page(
 				DX_CRM_DASHBOARD, 
-				__( 'Activity Log', 'dxcrm' ),
-				__( 'Activity Log', 'dxcrm' ),
+				esc_html__( 'Activity Log', 'dxcrm' ),
+				esc_html__( 'Activity Log', 'dxcrm' ),
 				'manage_options',
 				'dx-crm-activity-log',
 				array( $this, 'dx_crm_roadmap_tracking' )
@@ -78,7 +78,7 @@ class Dx_Crm_Admin{
 		if( is_admin() ){
 			require_once( DX_CRM_ADMIN_DIR . '/forms/crm-activity-log.php' );
 		} else {
-			_e( 'You are not permitted to access this page!.', 'dxcrm' );
+			esc_html__( 'You are not permitted to access this page!.', 'dxcrm' );
 		}
 	}
 	
@@ -109,7 +109,7 @@ class Dx_Crm_Admin{
 		?><div class="update-nag is-dismissible">
 		        <div>
 		        	<?php
-		        	_e( sprintf( 'Welcome to DX Sales CRM. Begin adding new data by heading to <a href="%s">DX Sales CRM Dashboard</a>', admin_url( 'admin.php?page=' . DX_CRM_DASHBOARD ) ), 'dxcrm' ); 
+		        	esc_html__( sprintf( 'Welcome to DX Sales CRM. Begin adding new data by heading to <a href="%s">DX Sales CRM Dashboard</a>', admin_url( 'admin.php?page=' . DX_CRM_DASHBOARD ) ), 'dxcrm' ); 
 					?>
 		        </div>
 		    </div><?php
@@ -390,6 +390,7 @@ class Dx_Crm_Admin{
 							$c_title[] = $get_title;
 						}
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo implode(', ', $c_title);
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
@@ -398,7 +399,7 @@ class Dx_Crm_Admin{
 			case 'company_type' :
 				$company_type = get_post_meta( $post_id, $prefix . 'company_type', true );
 				if( ! empty ( $company_type ) ){
-					echo $company_type;
+					echo wp_kses_post( $company_type );
 				} else {
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -406,7 +407,7 @@ class Dx_Crm_Admin{
 			case 'company_industry' :
 				$_dx_crm_company_industry = get_post_meta($post_id, $prefix . 'company_industry', true);
 				if( ! empty ( $_dx_crm_company_industry ) ){
-					echo $_dx_crm_company_industry;
+					echo wp_kses_post( $_dx_crm_company_industry );
 				} else {
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -438,6 +439,7 @@ class Dx_Crm_Admin{
 					foreach($post_id as $id){
 						$c_title[] = get_the_title( $id );
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo implode(', ', $c_title);
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
@@ -450,6 +452,7 @@ class Dx_Crm_Admin{
 					foreach($post_id as $id){
 						$c_title[] = get_the_title( $id );
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo implode(', ', $c_title);
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
@@ -457,12 +460,12 @@ class Dx_Crm_Admin{
 			break;
 			case 'customer_campaign' :
 				$post_id = get_post_meta($post_id, $prefix. 'joined_campaigns');
-				//print_r( $post_id );
 				$c_title = array();
 				if( ! empty( $post_id ) ){
 					foreach($post_id as $id){
 						$c_title[] = get_the_title( $id );
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo implode(', ', $c_title);
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
@@ -471,7 +474,7 @@ class Dx_Crm_Admin{
 			case 'customer_contact' :
 				$contact_number = get_post_meta($post_id, $prefix. 'contact_type', true);
 				if( ! empty( $contact_number ) ){
-					echo $contact_number ;				
+					echo wp_kses_post( $contact_number );				
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -479,7 +482,7 @@ class Dx_Crm_Admin{
 			case 'customer_email' :
 				$_dx_crm_cust_email = get_post_meta($post_id, $prefix. 'cust_email', true);
 				if( ! empty( $_dx_crm_cust_email ) ){
-					echo $_dx_crm_cust_email;				
+					echo wp_kses_post( $_dx_crm_cust_email );				
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -487,7 +490,7 @@ class Dx_Crm_Admin{
 			case 'customer_phone' :
 				$_dx_crm_contact_number = get_post_meta($post_id, $prefix. 'contact_number', true);
 				if( ! empty( $_dx_crm_contact_number ) ){
-					echo $_dx_crm_contact_number;				
+					echo wp_kses_post( $_dx_crm_contact_number );				
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}						
@@ -521,6 +524,7 @@ class Dx_Crm_Admin{
 							$pro_customer_name[] = $the_title;
 						}
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo implode(',', $pro_customer_name);
 				} else {
 					echo '<span class="dashicons dashicons-minus"></span>';
@@ -530,7 +534,7 @@ class Dx_Crm_Admin{
 			case 'pro_companies' :
 				$pro_assign_company = get_post_meta( $post_id	, $prefix . 'company_project', true );					
 				if( !empty( $pro_assign_company ) ) {					
-					echo get_the_title($pro_assign_company);				
+					echo esc_html( get_the_title($pro_assign_company) );				
 				} else {
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}		
@@ -542,7 +546,7 @@ class Dx_Crm_Admin{
 					$quote_status_array = apply_filters( 'dx_crm_project_status', array() );
 					
 					if( isset( $quote_status_array[$quote_status] ) ){
-						echo $quote_status_array[$quote_status];
+						echo wp_kses_post( $quote_status_array[$quote_status] );
 					}else{
 						echo '<span class="dashicons dashicons-minus"></span>';
 					}
@@ -581,7 +585,7 @@ class Dx_Crm_Admin{
 					$staff_contact_text .= '<br /><b>Email: </b>' . $staff_email;
 				}
 				if( ! empty ( $staff_contact_text ) ){
-					echo $staff_contact_text;
+					echo wp_kses_post( $staff_contact_text );
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -597,7 +601,7 @@ class Dx_Crm_Admin{
 							break;
 						}
 					}
-					echo $staff_skill_name;
+					echo wp_kses_post( $staff_skill_name );
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -605,7 +609,7 @@ class Dx_Crm_Admin{
 			case 'staff_availability' :
 				$staff_availability = get_post_meta( $post_id	, $prefix . 'emp_availability', true );
 				if ( ! empty( $staff_availability ) ) {
-					echo $staff_availability;
+					echo wp_kses_post( $staff_availability );
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -613,7 +617,7 @@ class Dx_Crm_Admin{
 			case 'staff_hourly_rate' :
 				$staff_hourly_rate = get_post_meta( $post_id	, $prefix . 'emp_hourly_rate', true );
 				if ( !empty($staff_hourly_rate) ) {
-					echo $staff_hourly_rate;
+					echo wp_kses_post( $staff_hourly_rate );
 				}else{
 					echo '<span class="dashicons dashicons-minus"></span>';
 				}
@@ -655,7 +659,7 @@ class Dx_Crm_Admin{
 			$html .= '<select>';
 			$html .= '</div>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			break;					
 		}
 	}
@@ -679,28 +683,28 @@ class Dx_Crm_Admin{
 			case 'timesheet_employee_data' :
 				$timesheet_employee_data = get_post_meta( $post_id	, $prefix . 'time_employee_data' );
 				if ( !empty($timesheet_employee_data) ) {
-					echo $timesheet_employee_data[0];
+					echo wp_kses_post( $timesheet_employee_data[0] );
 				}
 				break;
 				
 			case 'timesheet_start_time' :
 				$timesheet_start_time = get_post_meta( $post_id	, $prefix . 'time_start_time' );
 				if ( !empty($timesheet_start_time) ) {
-					echo $timesheet_start_time[0];
+					echo wp_kses_post( $timesheet_start_time[0] );
 				}
 				break;
 				
 			case 'timesheet_end_time' :
 				$timesheet_end_time = get_post_meta( $post_id	, $prefix . 'time_end_time' );
 				if ( !empty($timesheet_end_time) ) {
-					echo $timesheet_end_time[0];
+					echo wp_kses_post( $timesheet_end_time[0] );
 				}
 				break;
 				
 			case 'timesheet_date' :
 				$timesheet_date = get_post_meta( $post_id	, $prefix . 'time_date' );
 				if ( !empty($timesheet_date) ) {
-					echo $timesheet_date[0];
+					echo wp_kses_post( $timesheet_date[0] );
 				}
 				break;
 				
@@ -726,7 +730,7 @@ class Dx_Crm_Admin{
 			case 'milestone_project_referred' :
 				$milestone_project_referred = get_post_meta( $post_id	, $prefix . 'mile_pro_ref_to' );
 				if ( isset($milestone_project_referred[0]) && !empty($milestone_project_referred[0]) ) {
-					echo get_the_title ( $milestone_project_referred[0] );
+					echo esc_html( get_the_title ( $milestone_project_referred[0] ) );
 				} else {
 					echo '--';
 				}
@@ -735,21 +739,21 @@ class Dx_Crm_Admin{
 			case 'milestone_start_date' :
 				$milestone_start_date = get_post_meta( $post_id	, $prefix . 'mile_start_date' );
 				if ( !empty($milestone_start_date[0]) ) {
-					echo date ( 'M d, Y', strtotime($milestone_start_date[0]) );
+					echo esc_html( date ( 'M d, Y', strtotime($milestone_start_date[0]) ) );
 				}
 				break;
 				
 			case 'milestone_end_date' :
 				$milestone_end_date = get_post_meta( $post_id	, $prefix . 'mile_end_date' );
 				if ( !empty($milestone_end_date[0]) ) {
-					echo date ( 'M d, Y', strtotime($milestone_end_date[0]) );
+					echo esc_html( date ( 'M d, Y', strtotime($milestone_end_date[0]) ) );
 				}
 				break;
 				
 			case 'milestone_extra_cost' :
 				$milestone_extra_cost = get_post_meta( $post_id	, $prefix . 'mile_extra_cost' );
 				if ( !empty($milestone_extra_cost[0]) ) {
-					echo $milestone_extra_cost[0];
+					echo wp_kses_post( $milestone_extra_cost[0] );
 				}
 				break;
 
@@ -777,7 +781,7 @@ class Dx_Crm_Admin{
 				$document_file_attachment = get_post_meta( $post_id	, $prefix . 'document_file_upload' );
 				if ( isset($document_file_attachment[0][0]) && !empty($document_file_attachment[0][0]) ) {
 					$document_file_link = get_the_guid($document_file_attachment[0][0]);
-					echo '<a href="'.$document_file_link.'" target="_blank" >'.$document_file_link.'</a>';
+					echo '<a href="'. esc_url( $document_file_link ) .'" target="_blank" >'. esc_url( $document_file_link ) .'</a>';
 				} else {
 					echo '--';
 				}
@@ -786,14 +790,14 @@ class Dx_Crm_Admin{
 			case 'document_uploader_name' :
 				$document_author = $post->post_author;
 				if ( $document_author  ) {
-					echo the_author_meta( 'display_name' , $document_author );
+					echo esc_html( the_author_meta( 'display_name' , $document_author ) );
 				}
 				break;
 			
 			case 'document_date' :
 				$document_date = get_the_date($post->post_id);
 				if ( $document_date  ) {
-					echo $document_date;
+					echo esc_html( $document_date );
 				}
 				break;
 		}
@@ -846,7 +850,7 @@ class Dx_Crm_Admin{
 					}	 
 			$html .= '</div>
 		    </fieldset>';
-			echo $html;
+			echo wp_kses_post( $html );
 		}
 	}
 	
@@ -891,7 +895,7 @@ class Dx_Crm_Admin{
 				
 				$user_data = get_user_by('id', $check_users);
 				
-				wp_die( __( 'Sorry '.$user_data->display_name.' user already assign to some.', 'dxcrm' ), null, array('back_link' => true) );
+				wp_die( esc_html__( 'Sorry '.$user_data->display_name.' user already assign to some.', 'dxcrm' ), null, array('back_link' => true) );
 			}
 		}
 		return $postdata;
@@ -964,7 +968,7 @@ class Dx_Crm_Admin{
 													'dx-crm-exp-csv'=>	'1',
 													'crm_post_type'	=>	$post_type
 												));
-			echo '<span class="crm-download-csv"><a class="button" href="'.$exportcsvurl.'">Export To CSV</a></span>';		
+			echo '<span class="crm-download-csv"><a class="button" href="'. esc_url( $exportcsvurl ) .'">Export To CSV</a></span>';		
 		}
 	}
 	
@@ -1340,8 +1344,8 @@ class Dx_Crm_Admin{
 			
 		
 			$html .= '</select>';
-			
-			echo $html;
+
+			echo wp_kses_post( $html );
 	    }
 	
 		if ( $post_type == DX_CRM_POST_TYPE_CUSTOMERS ) {
@@ -1373,7 +1377,7 @@ class Dx_Crm_Admin{
 		
 			$html .= '</select>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 	    }
 	}
 	
@@ -1591,7 +1595,7 @@ class Dx_Crm_Admin{
 		
 			$html .= '</select>';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 	    }
 	}
 	
@@ -2114,7 +2118,7 @@ class Dx_Crm_Admin{
 				$project = get_the_title( $project_id );
 				
 				if( ! empty ( $project ) ){
-					echo $project;
+					echo wp_kses_post( $project );
 				}
 			break;
 		}
@@ -2230,7 +2234,7 @@ class Dx_Crm_Admin{
 
 							var data = {
 								action: 'crm_dm_pre_submit',
-								security: '<?php echo wp_create_nonce( "pre_publish_validation" ); ?>',
+								security: '<?php echo esc_js( wp_create_nonce( "pre_publish_validation" ) ); ?>',
 								'upload_file_extension': upload_file_extension
 							};
 							
@@ -2613,7 +2617,7 @@ class Dx_Crm_Admin{
 		global $current_user;
 
 		if ( in_array( $post_type, array( DX_CRM_POST_TYPE_PROJECTS, DX_CRM_POST_TYPE_COMPANY ) ) && in_array( DX_CRM_CUSTOMER_ROLE, $current_user->roles ) ) {
-			wp_die( 'You don\'t have access to this page! ', 'No access', array( 'back_link' => admin_url() ) );
+			wp_die( esc_html__( 'You don\'t have access to this page! ', 'dxcrm' ), esc_html__( 'No access', 'dxcrm' ), array( 'back_link' => esc_url( admin_url() ) ) );
 		}
 	}
 
