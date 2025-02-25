@@ -13,7 +13,7 @@
 if ( !defined( 'ABSPATH' ) ){ exit; }
 
 ?>
-<p><?php _e( 'Project report with highest price.' , 'dxcrm' ); ?></p>
+<p><?php esc_html_e( 'Project report with highest price.' , 'dxcrm' ); ?></p>
 <form action="" method="post" id="crm-customer-form" class="form-dx-crm-report">
 	
 	<?php 
@@ -24,11 +24,11 @@ if ( !defined( 'ABSPATH' ) ){ exit; }
 	
 	<table border="0" class="aligncenter" width="100%" id="dx-crm-report-table">		
 		<tr>		
-			<td><?php _e( 'Project Price' , 'dxcrm' ); ?>:</td>
+			<td><?php esc_html_e( 'Project Price' , 'dxcrm' ); ?>:</td>
 			<td>
 				<select name="agreed_cost_sort" class="chosen-select">
-					<option value="DESC"><?php _e( 'DESC' , 'dxcrm' ); ?></option>
-					<option value="ASC"><?php _e( 'ASC' , 'dxcrm' ); ?></option>
+					<option value="DESC"><?php esc_html_e( 'DESC' , 'dxcrm' ); ?></option>
+					<option value="ASC"><?php esc_html_e( 'ASC' , 'dxcrm' ); ?></option>
 				</select>
 			</td>			
 		</tr>
@@ -36,6 +36,6 @@ if ( !defined( 'ABSPATH' ) ){ exit; }
 
 	<?php wp_nonce_field( 'report-project-nonce', 'project-nonce-report' );	?>
 	
-	<input type="submit" class="button button-primary" name="submit" value="<?php _e( 'Generate Report' , 'dxcrm' ); ?>" />
+	<input type="submit" class="button button-primary" name="submit" value="<?php esc_html_e( 'Generate Report' , 'dxcrm' ); ?>" />
 	
 </form>
