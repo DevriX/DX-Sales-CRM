@@ -1024,10 +1024,9 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_image( $field, $meta ) {
-	
 		$this->show_field_begin( $field, $meta );
-		$html = wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", "nonce-delete-mupload_".$field['id'], false, false );
-	
+		$html = wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", "nonce-delete-mupload_" . esc_attr($field['id']), false, false );
+
 		if( is_array( $meta ) ) {
 			if( isset( $meta[0] ) && is_array( $meta[0] ) ) {
 				$meta = $meta[0];
@@ -1035,17 +1034,18 @@ class Dx_Crm_Meta_Box {
 		}
 		
 		if( is_array( $meta ) && isset( $meta['src'] ) && $meta['src'] != '' ) {
-			$html .= "<span class='mupload_img_holder'><img src='".$meta['src']."' style='height: 150px;width: 150px;' /></span>";
-			$html .= "<input type='hidden' name='".$field['id']."[id]' id='".$field['id']."[id]' value='".$meta['id']."' />";
-			$html .= "<input type='hidden' name='".$field['id']."[src]' id='".$field['id']."[src]' value='".$meta['src']."' />";
-			$html .= "<input class='dx-crm-meta-delete_image_button button-secondary' type='button' rel='".$field['id']."' value='Delete Image' />";
+			$html .= "<span class='mupload_img_holder'><img src='" . esc_url($meta['src']) . "' style='height: 150px;width: 150px;' /></span>";
+			$html .= "<input type='hidden' name='" . esc_attr($field['id']) . "[id]' id='" . esc_attr($field['id']) . "[id]' value='" . esc_attr($meta['id']) . "' />";
+			$html .= "<input type='hidden' name='" . esc_attr($field['id']) . "[src]' id='" . esc_attr($field['id']) . "[src]' value='" . esc_url($meta['src']) . "' />";
+			$html .= "<input class='dx-crm-meta-delete_image_button button-secondary' type='button' rel='" . esc_attr($field['id']) . "' value='" . esc_attr__('Delete Image', 'dxcrm') . "' />";
 		} else {
 			$html .= "<span class='mupload_img_holder'></span>";
-			$html .= "<input type='hidden' name='".$field['id']."[id]' id='".$field['id']."[id]' value='' />";
-			$html .= "<input type='hidden' name='".$field['id']."[src]' id='".$field['id']."[src]' value='' />";
-			$html .= "<input class='dx-crm-meta-upload_image_button button-secondary' type='button' rel='".$field['id']."' value='" . __( 'Upload Image', 'dxcrm' ) . "' />";
+			$html .= "<input type='hidden' name='" . esc_attr($field['id']) . "[id]' id='" . esc_attr($field['id']) . "[id]' value='' />";
+			$html .= "<input type='hidden' name='" . esc_attr($field['id']) . "[src]' id='" . esc_attr($field['id']) . "[src]' value='' />";
+			$html .= "<input class='dx-crm-meta-upload_image_button button-secondary' type='button' rel='" . esc_attr($field['id']) . "' value='" . esc_attr__('Upload Image', 'dxcrm') . "' />";
 		}
-		echo $html;
+		echo wp_kses_post($html);
+		$this->show_field_end( $field, $meta );
 	}
   
 	/**
@@ -1057,7 +1057,6 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_color( $field, $meta ) {
-    
 		if ( empty( $meta ) ) {
 			$meta = '#';
 		}
@@ -1065,11 +1064,14 @@ class Dx_Crm_Meta_Box {
 		$this->show_field_begin( $field, $meta );
 		
 		if( wp_style_is( 'wp-color-picker', 'registered' ) ) { //iris color picker since 3.5
-			echo "<input class='wpd-mb-meta-color-iris".( isset( $field['class'] )? " {$field['class']}": "")."' type='text' name='{$field['id']}' id='{$field['id']}' value='{$meta}' size='8' />";  
+			echo "<input class='wpd-mb-meta-color-iris " . esc_attr($field['class']) . "' type='text' name='" . 
+				 esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' value='" . esc_attr($meta) . "' size='8' />";  
 		} else {
-			echo "<input class='wpd-mb-meta-color".( isset( $field['class'] )? " {$field['class']}": "")."' type='text' name='{$field['id']}' id='{$field['id']}' value='{$meta}' size='8' />";
-			echo "<input type='button' class='wpd-mb-meta-color-select button' rel='{$field['id']}' value='" . __( 'Select a color' ,'dxcrm') . "'/>";
-			echo "<div style='display:none' class='wpd-mb-meta-color-picker' rel='{$field['id']}'></div>";
+			echo "<input class='wpd-mb-meta-color " . esc_attr($field['class']) . "' type='text' name='" . 
+				 esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' value='" . esc_attr($meta) . "' size='8' />";
+			echo "<input type='button' class='wpd-mb-meta-color-select button' rel='" . esc_attr($field['id']) . 
+				 "' value='" . esc_attr__('Select a color', 'dxcrm') . "'/>";
+			echo "<div style='display:none' class='wpd-mb-meta-color-picker' rel='" . esc_attr($field['id']) . "'></div>";
 		}
 
 		$this->show_field_end($field, $meta);    
