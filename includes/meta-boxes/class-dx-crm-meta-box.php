@@ -1086,7 +1086,6 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_checkbox_list( $field, $meta ) {
-    
 		if ( ! is_array( $meta ) ) {
 			$meta = (array) $meta;
 		}
@@ -1096,10 +1095,11 @@ class Dx_Crm_Meta_Box {
 		$html = array();
 		
 		foreach ($field['options'] as $key => $value) {
-			$html[] = "<input type='checkbox' class='wpd-mb-meta-checkbox_list' name='{$field['id']}[]' value='{$key}'" . checked( in_array( $key, $meta ), true, false ) . " /> {$value}";
+			$html[] = "<input type='checkbox' class='wpd-mb-meta-checkbox_list' name='" . esc_attr($field['id']) . "[]' value='" . 
+					  esc_attr($key) . "'" . checked( in_array( $key, $meta ), true, false ) . " /> " . esc_html($value);
 		}
 		
-		echo implode( '<br />' , $html );
+		echo wp_kses_post(implode( '<br />' , $html ));
 		  
 		$this->show_field_end($field, $meta);    
 	}
@@ -1113,10 +1113,12 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_date( $field, $meta ) {
-	
 		$this->show_field_begin( $field, $meta );
-		$meta = !is_array($meta) ? $meta : '' ;
-		echo "<input type='text' class='widefat wpd-mb-meta-date {$field['class']}' name='{$field['id']}' id='{$field['id']}' rel='{$field['format']}' value='{$meta}' size='30' readonly='readonly'/>";
+		$meta = !is_array($meta) ? $meta : '';
+		echo "<input type='text' class='widefat wpd-mb-meta-date " . esc_attr($field['class']) . 
+			 "' name='" . esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . 
+			 "' rel='" . esc_attr($field['format']) . "' value='" . esc_attr($meta) . 
+			 "' size='30' readonly='readonly'/>";
 		$this->show_field_end( $field, $meta );
 	}
 	
@@ -1129,10 +1131,11 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_datetime( $field, $meta ) {
-	
 		$this->show_field_begin( $field, $meta );
-		$meta = !is_array($meta) ? date('d-m-Y h:i a',strtotime($meta)) : '';
-		echo "<input type='text' class='wpd-mb-meta-datetime' name='{$field['id']}' id='{$field['id']}' rel='{$field['format']}' value='{$meta}' size='30' />";
+		$meta = !is_array($meta) ? date('d-m-Y h:i a', strtotime($meta)) : '';
+		echo "<input type='text' class='wpd-mb-meta-datetime' name='" . esc_attr($field['id']) . 
+			 "' id='" . esc_attr($field['id']) . "' rel='" . esc_attr($field['format']) . 
+			 "' value='" . esc_attr($meta) . "' size='30' />";
 		$this->show_field_end( $field, $meta );
 	}
   
@@ -1145,10 +1148,11 @@ class Dx_Crm_Meta_Box {
 	 * @access public 
 	 */
 	public function show_field_time( $field, $meta ) {
-  
 		$this->show_field_begin( $field, $meta );
-		$ampm = ($field['ampm'])? 'true' : 'false';
-		echo "<input type='text' class='wpd-mb-meta-time' name='{$field['id']}' id='{$field['id']}' data-ampm='{$ampm}' rel='{$field['format']}' value='{$meta}' size='30' />";
+		$ampm = ($field['ampm']) ? 'true' : 'false';
+		echo "<input type='text' class='wpd-mb-meta-time' name='" . esc_attr($field['id']) . 
+			 "' id='" . esc_attr($field['id']) . "' data-ampm='" . esc_attr($ampm) . 
+			 "' rel='" . esc_attr($field['format']) . "' value='" . esc_attr($meta) . "' size='30' />";
 		$this->show_field_end( $field, $meta );
 	}
   
@@ -1161,7 +1165,6 @@ class Dx_Crm_Meta_Box {
 	 * @access public 
  	 */
 	public function show_field_posts( $field, $meta ) {
-	
 		global $post;
     
 		if( !is_array( $meta ) ) {
@@ -1175,16 +1178,18 @@ class Dx_Crm_Meta_Box {
 		// checkbox_list
 		if ('checkbox_list' == $options['type']) {
 			foreach ($posts as $p) {
-				echo "<input type='checkbox' name='{$field['id']}[]' value='$p->ID'" . checked(in_array($p->ID, $meta), true, false) . " /> $p->post_title<br/>";
+				echo "<input type='checkbox' name='" . esc_attr($field['id']) . "[]' value='" . esc_attr($p->ID) . "'" . 
+					 checked(in_array($p->ID, $meta), true, false) . " /> " . esc_html($p->post_title) . "<br/>";
 			}
 		}
 		
 		// select
 		else {
-			echo "<select name='{$field['id']}" . ( $field['multiple'] ? "[]' multiple='multiple' style='height:auto'" : "'" ) . ">";
+			echo "<select name='" . esc_attr($field['id']) . ( $field['multiple'] ? "[]' multiple='multiple' style='height:auto'" : "'" ) . ">";
 			
 			foreach ($posts as $p) {
-				echo "<option value='$p->ID'" . selected( in_array( $p->ID, $meta ), true, false ) . ">$p->post_title</option>";
+				echo "<option value='" . esc_attr($p->ID) . "'" . 
+					 selected( in_array( $p->ID, $meta ), true, false ) . ">" . esc_html($p->post_title) . "</option>";
 			}
     
 			echo "</select>";
@@ -1204,7 +1209,6 @@ class Dx_Crm_Meta_Box {
 	 * @uses get_terms()
 	 */
 	public function show_field_taxonomy( $field, $meta ) {
-    
 		global $post;
     
 		if( !is_array( $meta ) ) {
@@ -1218,15 +1222,17 @@ class Dx_Crm_Meta_Box {
 		// checkbox_list
 		if( 'checkbox_list' == $options['type'] ) {
 			foreach( $terms as $term ) {
-				echo "<input type='checkbox' name='{$field['id']}[]' value='$term->slug'" . checked( in_array( $term->slug, $meta ), true, false ) . " /> $term->name<br/>";
+				echo "<input type='checkbox' name='" . esc_attr($field['id']) . "[]' value='" . esc_attr($term->slug) . "'" . 
+					 checked( in_array( $term->slug, $meta ), true, false ) . " /> " . esc_html($term->name) . "<br/>";
 			}
 		}
 		
 		// select
 		else {
-			echo "<select name='{$field['id']}" . ( $field['multiple'] ? "[]' multiple='multiple' style='height:auto'" : "'" ) . ">";
+			echo "<select name='" . esc_attr($field['id']) . ( $field['multiple'] ? "[]' multiple='multiple' style='height:auto'" : "'" ) . ">";
 			foreach ($terms as $term) {
-				echo "<option value='$term->slug'" . selected( in_array( $term->slug, $meta ), true, false ) . ">$term->name</option>";
+				echo "<option value='" . esc_attr($term->slug) . "'" . 
+					 selected( in_array( $term->slug, $meta ), true, false ) . ">" . esc_html($term->name) . "</option>";
 			}
 			echo "</select>";
 		}
@@ -1243,19 +1249,19 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	*/
 	public function show_field_cond( $field, $meta ) {
-  
 		$this->show_field_begin( $field, $meta );
 		$checked = false;
 		
 		if( is_array( $meta ) && isset( $meta['enabled'] ) && $meta['enabled'] == 'on' ) {
-		  $checked = true;
+			$checked = true;
 		}
 		
-		echo "<input type='checkbox' class='conditinal_control' name='{$field['id']}[enabled]' id='{$field['id']}'" . checked( $checked, true, false ) . " />";
-		//start showing the fields
-		$display = ( $checked )? '' :  ' style="display: none;"';
+		echo "<input type='checkbox' class='conditinal_control' name='" . esc_attr($field['id']) . 
+			 "[enabled]' id='" . esc_attr($field['id']) . "'" . checked( $checked, true, false ) . " />";
 		
-		echo '<div class="conditinal_container"' . $display . '><table>';
+		$display = ( $checked ) ? '' : ' style="display: none;"';
+		
+		echo '<div class="conditinal_container"' . esc_attr($display) . '><table>';
 		
 		foreach( ( array )$field['fields'] as $f ) {
 			//reset var $id for cond
