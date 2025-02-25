@@ -795,7 +795,7 @@ class Dx_Crm_Meta_Box {
 	public function show_field_button( $field, $meta) {  
 	
 		$this->show_field_begin( $field, $meta );
-		echo "<input type='button' class='dx_crm_cust_send_email' name='{$field['id']}' id='{$field['id']}' value='Click to Send Email' />";
+		echo "<input type='button' class='dx_crm_cust_send_email' name='" . esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' value='Click to Send Email' />";
 		$this->show_field_end( $field, $meta );
 	}
  
@@ -809,9 +809,7 @@ class Dx_Crm_Meta_Box {
 	 */
 	public function show_field_hidden( $field, $meta ) {  
 	
-		//$this->show_field_begin( $field, $meta );
-		echo "<input type='hidden' class='widefat' name='{$field['id']}' id='{$field['id']}' value='{$meta}'/>";
-		//$this->show_field_end( $field, $meta );
+		echo "<input type='hidden' class='widefat' name='" . esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' value='" . esc_attr($meta) . "'/>";
 	}
   
 	/**
@@ -823,9 +821,7 @@ class Dx_Crm_Meta_Box {
 	 */
 	public function show_field_paragraph( $field ) {  
 	
-		//$this->show_field_begin( $field, $meta );
-		echo '<p>'.$field['value'].'</p>';
-		//$this->show_field_end( $field, $meta );
+		echo '<p>' . wp_kses_post($field['value']) . '</p>';
 	}
     
 	/**
@@ -858,44 +854,42 @@ class Dx_Crm_Meta_Box {
 		}
 		  
 		$this->show_field_begin( $field, $meta );		
-		echo "<select class='dx-crm-meta-select {$field['class']}' name='{$field['id']}" . ( $field['multiple'] ? "[]' id='{$field['id']}' multiple='multiple'" : "'" ) . ">";
+		echo "<select class='dx-crm-meta-select " . esc_attr($field['class']) . "' name='" . esc_attr($field['id']) . 
+			( $field['multiple'] ? "[]' id='" . esc_attr($field['id']) . "' multiple='multiple'" : "'" ) . ">";
+		
 		if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
-                    foreach ( $field['options'] as $key => $value ) {
-                                    echo "<option value='{$key}'" . selected( in_array( $key, $meta ), true, false ) . ">{$value}</option>";
-                    }
-                }
+			foreach ( $field['options'] as $key => $value ) {
+				echo "<option value='" . esc_attr($key) . "'" . selected( in_array( $key, $meta ), true, false ) . ">" . esc_html($value) . "</option>";
+			}
+		}
 		
 		echo "</select>";    
-                
-                if( isset( $field['html_attr']['attr'] ) && !empty($field['html_attr']['attr']) ) {
-                    //For show add image to the customer edit page for add new campaigns
-                        $title = ( !empty( $field['html_attr']['title'] ) )?$field['html_attr']['title']:'';
-                        echo "<a href='javascript:void(0);' title='$title' class='dx-crm-add-{$field['html_attr']['attr']}-link'><img src='".$this->SelfPath."/images/add.png' class='dx-crm-add-{$field['html_attr']['attr']}-image'></a>";		
-                } else {
-                    //For show add image to the customer edit page for add new company
-                    if( isset( $field['company_html_attr'] ) && !empty($field['company_html_attr']) && $field['company_html_attr'] == 'add_company' ) {
+		
+		if( isset( $field['html_attr']['attr'] ) && !empty($field['html_attr']['attr']) ) {
+			$title = ( !empty( $field['html_attr']['title'] ) ) ? $field['html_attr']['title'] : '';
+			echo "<a href='javascript:void(0);' title='" . esc_attr($title) . "' class='dx-crm-add-" . esc_attr($field['html_attr']['attr']) . "-link'>" .
+				 "<img src='" . esc_url($this->SelfPath . "/images/add.png") . "' class='dx-crm-add-" . esc_attr($field['html_attr']['attr']) . "-image'></a>";		
+		} else {
+			if( isset( $field['company_html_attr'] ) && !empty($field['company_html_attr']) && $field['company_html_attr'] == 'add_company' ) {
+				echo "<a href='javascript:void(0);' title='" . esc_attr__('Add New Company', 'dxcrm') . "' class='dx-crm-add-company-link'>" .
+					 "<img src='" . esc_url($this->SelfPath . "/images/add.png") . "' class='dx-crm-add-company-image'></a>";
+			}
 
-                            echo "<a href='javascript:void(0);' title='Add New Company' class='dx-crm-add-company-link'><img src='".$this->SelfPath."/images/add.png' class='dx-crm-add-company-image'></a>";
-                    }
+			if( isset( $field['project_html_attr'] ) && !empty($field['project_html_attr']) && $field['project_html_attr'] == 'add_project' ) {
+				echo "<a href='javascript:void(0);' title='" . esc_attr__('Add New Project', 'dxcrm') . "' class='dx-crm-add-project-link'>" .
+					 "<img src='" . esc_url($this->SelfPath . "/images/add.png") . "' class='dx-crm-add-project-image'></a>";
+			}
 
-                    //For show add image to the customer edit page for add new project
-                    if( isset( $field['project_html_attr'] ) && !empty($field['project_html_attr']) && $field['project_html_attr'] == 'add_project' ) {
+			if( isset( $field['customer_html_attr'] ) && !empty($field['customer_html_attr']) && $field['customer_html_attr'] == 'add_customer' ) {
+				echo "<a href='javascript:void(0);' title='" . esc_attr__('Add New Customer', 'dxcrm') . "' class='dx-crm-add-customer-link'>" .
+					 "<img src='" . esc_url($this->SelfPath . "/images/add.png") . "' class='dx-crm-add-customer-image'></a>";
+			}
 
-                            echo "<a href='javascript:void(0);' title='Add New Project' class='dx-crm-add-project-link'><img src='".$this->SelfPath."/images/add.png' class='dx-crm-add-project-image'></a>";
-                    }
-
-                    //For show add image to the company edit page for add new customer
-                    if( isset( $field['customer_html_attr'] ) && !empty($field['customer_html_attr']) && $field['customer_html_attr'] == 'add_customer' ) {
-
-                            echo "<a href='javascript:void(0);' title='Add New Customer' class='dx-crm-add-customer-link'><img src='".$this->SelfPath."/images/add.png' class='dx-crm-add-customer-image'></a>";
-                    }
-
-                    //For show add image to the customer edit page for add new project type
-                    if( isset( $field['project_type_html_attr'] )  && !empty($field['project_type_html_attr']) && $field['project_type_html_attr'] == 'add_project_type' ) {
-
-                            echo "<a href='javascript:void(0);' title='Add New Project Type' class='dx-crm-add-project-type'><img src='".$this->SelfPath."/images/add.png' class='dx-crm-add-project-type'></a>";
-                    }
-                }
+			if( isset( $field['project_type_html_attr'] ) && !empty($field['project_type_html_attr']) && $field['project_type_html_attr'] == 'add_project_type' ) {
+				echo "<a href='javascript:void(0);' title='" . esc_attr__('Add New Project Type', 'dxcrm') . "' class='dx-crm-add-project-type'>" .
+					 "<img src='" . esc_url($this->SelfPath . "/images/add.png") . "' class='dx-crm-add-project-type'></a>";
+			}
+		}
 		$this->show_field_end( $field, $meta );    
 	}
   
@@ -917,7 +911,9 @@ class Dx_Crm_Meta_Box {
 		
 		$i = 1;
 		foreach ( $field['options'] as $key => $value ) {
-			echo "<input type='radio' class='wpd-mb-meta-radio {$field['class']}' id='".$field['id'].'-'.$i."' name='{$field['id']}' value='{$key}'" . checked( in_array( $key, $meta ), true, false ) . " /> <label for='".$field['id'].'-'.$i."' class='wpd-mb-meta-radio-label'>{$value}</label>";
+			echo "<input type='radio' class='wpd-mb-meta-radio " . esc_attr($field['class']) . "' id='" . esc_attr($field['id'] . '-' . $i) . 
+				 "' name='" . esc_attr($field['id']) . "' value='" . esc_attr($key) . "'" . checked( in_array( $key, $meta ), true, false ) . 
+				 " /> <label for='" . esc_attr($field['id'] . '-' . $i) . "' class='wpd-mb-meta-radio-label'>" . esc_html($value) . "</label>";
 			$i++;
 		}
 		
@@ -935,7 +931,9 @@ class Dx_Crm_Meta_Box {
 	public function show_field_checkbox( $field, $meta ) {
   
 		$this->show_field_begin($field, $meta);
-		echo "<input type='checkbox' class='rw-checkbox {$field['class']}' name='{$field['id']}' value='1' id='{$field['id']}'" . checked(!empty($meta), true, false) . " /><p class='wpd-mb-meta'>{$field['desc']}</p></td>";
+		echo "<input type='checkbox' class='rw-checkbox " . esc_attr($field['class']) . "' name='" . esc_attr($field['id']) . 
+			 "' value='1' id='" . esc_attr($field['id']) . "'" . checked(!empty($meta), true, false) . 
+			 " /><p class='wpd-mb-meta'>" . esc_html($field['desc']) . "</p></td>";
       
 	}
   
@@ -947,7 +945,7 @@ class Dx_Crm_Meta_Box {
 	 * @since 1.0
 	 * @access public
 	 */
-	public function show_field_wysiwyg( $field, $meta,$in_repeater = false ) {
+	public function show_field_wysiwyg( $field, $meta, $in_repeater = false ) {
 	
 		$this->show_field_begin( $field, $meta );
     
@@ -955,7 +953,8 @@ class Dx_Crm_Meta_Box {
 		global $wp_version;
     
 		if ( version_compare( $wp_version, '3.2.1' ) < 1 || $in_repeater ) {
-			echo "<textarea class='wpd-mb-meta-wysiwyg theEditor large-text' name='{$field['id']}' id='{$field['id']}' cols='60' rows='10'>{$meta}</textarea>";
+			echo "<textarea class='wpd-mb-meta-wysiwyg theEditor large-text' name='" . esc_attr($field['id']) . 
+				 "' id='" . esc_attr($field['id']) . "' cols='60' rows='10'>" . esc_textarea($meta) . "</textarea>";
 		} else {
 			// Use new wp_editor() since WP 3.3
 			wp_editor( html_entity_decode($meta), $field['id'], array( 'editor_class' => 'wpd-mb-meta-wysiwyg' ) );
