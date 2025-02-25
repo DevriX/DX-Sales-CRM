@@ -12,8 +12,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
 global $current_user, $dx_crm_roadmap;
 ?>
 <div class="wrap">
-	<h1><?php _e( 'Activity Log', 'dxcrm' ); ?></h1>	
-	<p><?php _e( 'All Projects progress and updates', 'dxcrm' ); ?></p>
+	<h1><?php esc_html_e( 'Activity Log', 'dxcrm' ); ?></h1>	
+	<p><?php esc_html_e( 'All Projects progress and updates', 'dxcrm' ); ?></p>
 	<?php
 		global $dx_crm_roadmap;
 		
@@ -21,7 +21,7 @@ global $current_user, $dx_crm_roadmap;
 
 		if ( ( ( isset( $_POST['month'] ) || isset( $_POST['user'] ) ) && ( ! isset( $_POST['filter-nonce-activity-log'] ) || ! wp_verify_nonce( $_POST['filter-nonce-activity-log'], 'activity-log-filter' ) ) || ( isset( $_POST['s'] ) && ( ! isset( $_POST['search-nonce-activity-log'] ) || ! wp_verify_nonce( $_POST['search-nonce-activity-log'], 'activity-log-search' ) ) ) )
 		) {
-			echo __( 'Problem occurred! Please try again.', 'dxcrm' );
+			echo esc_html__( 'Problem occurred! Please try again.', 'dxcrm' );
 			exit();
 		}
 
@@ -89,7 +89,7 @@ global $current_user, $dx_crm_roadmap;
 			 * @since 1.0.0
 			*/
 			if ( $page_links ) {
-				echo '<div class="pagination"><span class="pagination">' . $roadmap_count . __( ' items', 'dxcrm' ) . '</span>' . $page_links . '</div>';
+				echo '<div class="pagination"><span class="pagination">' . esc_html( $roadmap_count ) . esc_html__( ' items', 'dxcrm' ) . '</span>' . wp_kses_post( $page_links ) . '</div>';
 			}
 
 			do_action( 'dx_crm_roadmap_filters', 10 );
@@ -123,7 +123,7 @@ global $current_user, $dx_crm_roadmap;
 			}	
 			$html .= '</table><br />';
 			
-			echo $html;
+			echo wp_kses_post( $html );
 			
 			/**
 			 * Display pagination only if there's data
@@ -132,7 +132,7 @@ global $current_user, $dx_crm_roadmap;
 			 * @since 1.0.0
 			*/
 			if ( $page_links ) {
-			    echo '<div class="pagination"><span class="pagination">' . $roadmap_count . __( ' items', 'dxcrm' ) . '</span>' . $page_links . '</div>';
+			    echo '<div class="pagination"><span class="pagination">' . esc_html( $roadmap_count ) . esc_html__( ' items', 'dxcrm' ) . '</span>' . wp_kses_post( $page_links ) . '</div>';
 			}
 		} else {
 			/**
@@ -151,7 +151,7 @@ global $current_user, $dx_crm_roadmap;
 			 * @since 1.0.0
 			 */
 			$log_message = isset( $_GET['s'] ) ? __( 'No log found!', 'dxcrm' ) : __( 'Roadmap tracking is empty!', 'dxcrm' ) ;			
-			printf( '<div class="activity-log-error"><p>%s</p></div>', $log_message );
+			printf( '<div class="activity-log-error"><p>%s</p></div>', esc_html( $log_message ) );
 		}
 	?>
 </div>
