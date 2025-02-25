@@ -413,16 +413,16 @@ if( ! class_exists( 'Sales_CRM_Customer' ) ){
 				return;
 			}
 			?>
-			<h3><?php _e( 'Sales CRM Information', 'dxcrm' ); ?></h3>
+			<h3><?php esc_html_e( 'Sales CRM Information', 'dxcrm' ); ?></h3>
 			<table class="form-table">
 				<tr>
-					<th><label for="<?php echo DX_CRM_META_PREFIX . 'contact_number'; ?>"><?php _e( 'Phone Number', 'dxcrm' ); ?></label></th>
+					<th><label for="<?php echo esc_attr( DX_CRM_META_PREFIX . 'contact_number' ); ?>"><?php esc_html_e( 'Phone Number', 'dxcrm' ); ?></label></th>
 					<td>
-						<input type="text" name="<?php echo DX_CRM_META_PREFIX . 'contact_number'; ?>" id="<?php echo DX_CRM_META_PREFIX . 'contact_number'; ?>" value="<?php echo esc_attr( get_user_meta( $user->ID, DX_CRM_META_PREFIX . 'contact_number', true ) ); ?>" class="regular-text" /><br />
+						<input type="text" name="<?php echo esc_attr( DX_CRM_META_PREFIX . 'contact_number' ); ?>" id="<?php echo esc_attr( DX_CRM_META_PREFIX . 'contact_number' ); ?>" value="<?php echo esc_attr( get_user_meta( $user->ID, DX_CRM_META_PREFIX . 'contact_number', true ) ); ?>" class="regular-text" /><br />
 					</td>
 				</tr>
 				<tr>
-					<th><?php _e( 'Skills', 'dxcrm' ); ?></th>
+					<th><?php esc_html_e( 'Skills', 'dxcrm' ); ?></th>
 					<td>
 						<?php echo esc_attr( get_user_meta( $user->ID, DX_CRM_META_PREFIX . 'skills', true ) ); ?>
 					</td>
