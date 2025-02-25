@@ -149,12 +149,12 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
 				<legend><?php echo esc_html__( 'Customer information' , 'dxcrm' );?> </legend>
 				<div class="form-row">
 					<div class="row-left"><label for="cust_name"><?php echo esc_html__( 'Customer Name' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_name" type="text" name="<?php echo $prefix ;?>cust_name" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Customer Name' , 'dxcrm' );?>"/></div>
+					<div class="row-right"><input id="cust_name" type="text" name="<?php echo esc_attr( $prefix . 'cust_name' ); ?>" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Customer Name' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_desc"><?php echo esc_html__( 'Customer Description' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><textarea cols="15" rows="5" id="cust_desc" type="text" name="<?php echo $prefix ;?>cust_desc" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Customer Description' , 'dxcrm' );?>"></textarea></div>
+					<div class="row-right"><textarea cols="15" rows="5" id="cust_desc" type="text" name="<?php echo esc_attr( $prefix ) ;?>cust_desc" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Customer Description' , 'dxcrm' );?>"></textarea></div>
 				</div>
 				<br class="clear">
                 <?php if( ! empty( $skills_arr ) ){?>
@@ -163,7 +163,7 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
 						<div class="row-right">
 						<?php
 							foreach ( $skills_arr as $ks => $vs ){
-								echo '<input type="checkbox" name="'.esc_attr( $prefix ).'cust_skills[]" value="'.esc_attr( $ks ).'" />'.$vs;
+								echo '<input type="checkbox" name="'.esc_attr( $prefix . 'cust_skills' ).'[]" value="'.esc_attr( $ks ).'" />'.esc_html( $vs );
 							}
 						?>
 						</div>
@@ -176,7 +176,7 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
                         <div class="row-right">
                         <?php
                             foreach ( $user_arr as $ku => $vu ){
-                                echo '<input type="checkbox" name="'.esc_attr( $prefix ).'cust_assign_customer[]" value="'.esc_attr( $ku ).'" />'.$vu;
+                                echo '<input type="checkbox" name="'.esc_attr( $prefix . 'cust_assign_customer' ).'[]" value="'.esc_attr( $ku ).'" />'.esc_html( $vu );
                             }
                         ?>
                         </div>
@@ -212,17 +212,17 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_initial_investment"><?php esc_html__( 'Initial Investment' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_initial_investment" type="text" name="<?php echo $prefix ;?>cust_initial_investment" data-validation="number" data-validation-allowing="float" data-validation-error-msg="<?php esc_html__( 'Please provide correct Initial Investment' , 'dxcrm' );?>"/></div>
+					<div class="row-right"><input id="cust_initial_investment" type="text" name="<?php echo esc_attr( $prefix . 'cust_initial_investment' ); ?>" data-validation="number" data-validation-allowing="float" data-validation-error-msg="<?php esc_html__( 'Please provide correct Initial Investment' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_referral"><?php echo esc_html__( 'Referral' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_referral" type="text" name="<?php echo $prefix ;?>cust_referral" /></div>
+					<div class="row-right"><input id="cust_referral" type="text" name="<?php echo esc_attr( $prefix . 'cust_referral' ); ?>" /></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_contact_date"><?php echo esc_html__( 'Contact Date' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_contact_date" class="add-datepicker" type="text" name="<?php echo $prefix ;?>cust_contact_date" readonly="readonly" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation="number" data-validation-error-msg="<?php echo esc_html__( 'Please provide Contact Date' , 'dxcrm' );?>"/></div>
+					<div class="row-right"><input id="cust_contact_date" class="add-datepicker" type="text" name="<?php echo esc_attr( $prefix . 'cust_contact_date' ); ?>" readonly="readonly" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation="number" data-validation-error-msg="<?php echo esc_html__( 'Please provide Contact Date' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 			</fieldset>
@@ -230,21 +230,21 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
 				<legend><?php echo esc_html__( 'Customer Invoice details' , 'dxcrm' );?></legend>
 				<div class="form-row">
 					<div class="row-left"><label for="cust_bank_info"><?php echo esc_html__( 'Bank Info' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><textarea cols="15" rows="5" id="cust_bank_info" type="text" name="<?php echo $prefix ;?>cust_bank_info" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Bank Info' , 'dxcrm' );?>"></textarea></div>
+					<div class="row-right"><textarea cols="15" rows="5" id="cust_bank_info" type="text" name="<?php echo esc_attr( $prefix . 'cust_bank_info' ); ?>" data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Bank Info' , 'dxcrm' );?>"></textarea></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_vat_number"><?php echo esc_html__( 'VAT number' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_vat_number" type="text" name="<?php echo $prefix ;?>cust_vat_number"  data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide VAT #' , 'dxcrm' );?>"/></div>
+					<div class="row-right"><input id="cust_vat_number" type="text" name="<?php echo esc_attr( $prefix . 'cust_vat_number' ); ?>"  data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide VAT #' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="cust_country"><?php echo esc_html__( 'Country' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="cust_country" type="text" name="<?php echo $prefix ;?>cust_country"  data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Country' , 'dxcrm' );?>"/></div>
+					<div class="row-right"><input id="cust_country" type="text" name="<?php echo esc_attr( $prefix . 'cust_country' ); ?>"  data-validation="required" data-validation-error-msg="<?php echo esc_html__( 'Please provide Country' , 'dxcrm' );?>"/></div>
 				</div>					
 			</fieldset>
 			<div class="form-row">
-				<div class="row-left"><input type="submit" name="<?php echo $prefix ;?>add_cust" value="Add Customer" <?php echo $submit_button; ?>/></div>
+				<div class="row-left"><input type="submit" name="<?php echo esc_attr( $prefix . 'add_cust' ); ?>" value="Add Customer" <?php echo esc_attr( $submit_button ); ?>/></div>
 			</div>
 			<br class="clear">
 		</form>
@@ -252,7 +252,7 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {?>
 	</div><!-- #primary -->
 	<?php
 } else {
-    echo sprintf( __( 'Please <a href="%s">log in</a> with admin user to add project', 'dxcrm' ), wp_login_url() );
+    echo sprintf( esc_html__( 'Please <a href="%s">log in</a> with admin user to add project', 'dxcrm' ), esc_url( wp_login_url() ) );
 } 
 
 /** 
