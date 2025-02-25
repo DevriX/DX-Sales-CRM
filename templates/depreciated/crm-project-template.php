@@ -128,12 +128,12 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) { ?>
 				<legend><?php esc_html_e( 'Project Information' , 'dxcrm' );?> </legend>
 				<div class="form-row">
 					<div class="row-left"><label for="proj_name"><?php esc_html_e( 'Project Name' , 'dxcrm' );?></label></div>
-					<div class="row-right"><input id="proj_name" type="text" name="<?php echo wp_kses_post( $prefix->proj_name ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Project Name' , 'dxcrm' ); ?>"/></div>
+					<div class="row-right"><input id="proj_name" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_name' ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Project Name' , 'dxcrm' ); ?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="proj_desc"><?php esc_html_e( 'Project Description' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><textarea cols="15" rows="5" id="proj_desc" type="text" name="<?php echo wp_kses_post( $prefix->proj_desc ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Project Description' , 'dxcrm' ); ?>"></textarea></div>
+					<div class="row-right"><textarea cols="15" rows="5" id="proj_desc" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_desc' ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Project Description' , 'dxcrm' ); ?>"></textarea></div>
 				</div>					
 				<br class="clear">
                 <?php 
@@ -178,32 +178,32 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) { ?>
 				<legend><?php esc_html_e( 'Project Details' , 'dxcrm' );?></legend>	
 				<div class="form-row">
 					<div class="row-left"><label for="proj_start_date"><?php esc_html_e( 'Start Date' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="proj_start_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix->proj_start_date ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Start Date' , 'dxcrm' );?>"> </div>
+					<div class="row-right"><input id="proj_start_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_start_date' ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Start Date' , 'dxcrm' );?>"> </div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="proj_planned_end_date"><?php esc_html_e( 'Planned End Date' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="proj_planned_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix->proj_planned_end_date ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Planned End Date' , 'dxcrm' );?>"> </div>
+					<div class="row-right"><input id="proj_planned_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_planned_end_date' ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Planned End Date' , 'dxcrm' );?>"> </div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="proj_milestone_end_date"><?php esc_html_e( 'Real End Date for first milestone' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="proj_milestone_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix->proj_milestone_end_date ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Real End Date for first milestone' , 'dxcrm' );?>"></div>
+					<div class="row-right"><input id="proj_milestone_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_milestone_end_date' ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation-error-msg="<?php esc_html_e( 'Please provide Real End Date for first milestone' , 'dxcrm' );?>"></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="proj_conversation_end_date"><?php esc_html_e( 'Real End Date for last conversation' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="proj_conversation_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix->proj_conversation_end_date ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation="number" data-validation-error-msg="<?php esc_html_e( 'Please provide Real End Date for last conversation' , 'dxcrm' );?>"></div>
+					<div class="row-right"><input id="proj_conversation_end_date" class="add-datepicker" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_conversation_end_date' ); ?>" data-validation="date" data-validation-format="dd-mm-yyyy" data-validation="number" data-validation-error-msg="<?php esc_html_e( 'Please provide Real End Date for last conversation' , 'dxcrm' );?>"></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
 					<div class="row-left"><label for="proj_agreed_cost"><?php esc_html_e( 'Agreed Cost' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="proj_agreed_cost" type="text" name="<?php echo wp_kses_post( $prefix->proj_agreed_cost ); ?>" data-validation="number" data-validation-allowing="float" data-validation-error-msg="<?php esc_html_e( 'Please provide cost in number or decimal format' , 'dxcrm' );?>"></div>
+					<div class="row-right"><input id="proj_agreed_cost" type="text" name="<?php echo wp_kses_post( $prefix . 'proj_agreed_cost' ); ?>" data-validation="number" data-validation-allowing="float" data-validation-error-msg="<?php esc_html_e( 'Please provide cost in number or decimal format' , 'dxcrm' );?>"></div>
 				</div>
 				<br class="clear">					
 			</fieldset>
 			<div class="form-row">
-				<div class="row-left"><input type="submit" name="<?php echo wp_kses_post( $prefix->add_proj ); ?>" value="Add Project" <?php echo esc_attr( $submit_button ); ?>/></div>
+				<div class="row-left"><input type="submit" name="<?php echo wp_kses_post( $prefix . add_proj ); ?>" value="Add Project" <?php echo esc_attr( $submit_button ); ?>/></div>
 			</div>
 			<br class="clear">
 		</form>
