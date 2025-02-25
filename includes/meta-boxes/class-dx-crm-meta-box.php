@@ -512,7 +512,6 @@ class Dx_Crm_Meta_Box {
     
 		global $post;
 		$meta_nonce = $this->_meta_box['nonce'];
-		//var_dump($this->_fields);
 		wp_nonce_field( basename(__FILE__), $meta_nonce );
 		
 		echo '<table class="wpd-mb-wrapper form-table">';
@@ -534,7 +533,7 @@ class Dx_Crm_Meta_Box {
 				$this->inGroup = true;
 				echo '<td><table class="form-table"><tr valign="top">';
 			}
-			// Call Separated methods for displaying each type of field.
+			
 			call_user_func ( array( $this, 'show_field_' . $field['type'] ), $field, $meta );
 
 			if( $this->inGroup === true ) {
@@ -571,7 +570,7 @@ class Dx_Crm_Meta_Box {
 		  
 		if( $field['sortable'] )  
 			$class = " repeater-sortable";
-		echo "<div class='wpd-mb-meta-repeat".$class."' id='{$field['id']}'>";
+		echo "<div class='wpd-mb-meta-repeat" . esc_attr($class) . "' id='" . esc_attr($field['id']) . "'>";
 		
 		$c = 0;
 		$meta = get_post_meta( $post->ID, $field['id'], true );
@@ -579,10 +578,9 @@ class Dx_Crm_Meta_Box {
 		if( count( $meta ) > 0 && is_array( $meta ) ) {
 			 
 			foreach( $meta as $me ) {
-				//for labling toggles
-				//$mmm =  $me[$field['fields'][0]['id']];
-				$mmm =  isset( $me[$field['fields'][0]['id']] )? $me[$field['fields'][0]['id']]: "";
-				echo '<div class="wpd-mb-meta-repater-block">'.$mmm.'<br/><table class="repeater-table form-table" style="display: none;">';
+				//for labeling toggles
+				$mmm = isset( $me[$field['fields'][0]['id']] ) ? $me[$field['fields'][0]['id']] : "";
+				echo '<div class="wpd-mb-meta-repater-block">' . esc_html($mmm) . '<br/><table class="repeater-table form-table" style="display: none;">';
 				if( $field['inline'] ) {
 					echo '<tr class="wpd-mb-meta-inline" valign="top">';
 				}
@@ -612,26 +610,25 @@ class Dx_Crm_Meta_Box {
 					echo '</tr>';
 				}
 				
-				echo '	</table>
-						<span class="wpd-mb-meta-re-toggle"><img src="';
+				echo '	</table><span class="wpd-mb-meta-re-toggle"><img src="';
 				   
 				if ( $this->_Local_images ) {
-					echo $plugin_path.'/images/edit.png';
+					echo esc_url($plugin_path . '/images/edit.png');
 				} else {
 					echo 'http://i.imgur.com/ka0E2.png';
 				}
 						
-				echo '" alt="Edit" title="Edit"/></span> 
+				echo '" alt="' . esc_attr__( 'Edit', 'dxcrm' ) . '" title="' . esc_attr__( 'Edit', 'dxcrm' ) . '"/></span> 
 				
 				<img src="';
 					
 				if ($this->_Local_images){
-					echo $plugin_path.'/images/remove.png';
+					echo esc_url($plugin_path . '/images/remove.png');
 				} else {
 					echo 'http://i.imgur.com/g8Duj.png';
 				}
 				
-				echo '" alt="'.__( 'Remove', 'dxcrm' ).'" title="'.__( 'Remove', 'dxcrm' ).'" id="remove-'.$field['id'].'"></div>';
+				echo '" alt="' . esc_attr__( 'Remove', 'dxcrm' ) . '" title="' . esc_attr__( 'Remove', 'dxcrm' ) . '" id="remove-' . esc_attr($field['id']) . '"></div>';
 				$c = $c + 1;			
 			}
 		}
@@ -639,12 +636,12 @@ class Dx_Crm_Meta_Box {
 		echo '<img src="';
 		
 		if ( $this->_Local_images ) {
-			echo $plugin_path.'/images/add.png';
+			echo esc_url($plugin_path . '/images/add.png');
 		} else {
 			echo 'http://i.imgur.com/w5Tuc.png';
 		}
 			
-		echo '" alt="'.__( 'Add', 'dxcrm' ).'" title="'.__( 'Add', 'dxcrm' ).'" id="add-'.$field['id'].'"><br/></div>';
+		echo '" alt="' . esc_attr__( 'Add', 'dxcrm' ) . '" title="' . esc_attr__( 'Add', 'dxcrm' ) . '" id="add-' . esc_attr($field['id']) . '"><br/></div>';
 		
 		//create all fields once more for js function and catch with object buffer
 		ob_start();
@@ -682,29 +679,29 @@ class Dx_Crm_Meta_Box {
 		echo '</table><img src="';
 			
 		if ($this->_Local_images){
-			echo $plugin_path.'/images/remove.png';
+			echo esc_url($plugin_path . '/images/remove.png');
 		} else {
 			echo 'http://i.imgur.com/g8Duj.png';
 		}
 			
-		echo '" alt="'.__( 'Remove', 'dxcrm' ).'" title="'.__( 'Remove', 'dxcrm' ).'" id="remove-'.$field['id'].'"></div>';
+		echo '" alt="' . esc_attr__( 'Remove', 'dxcrm' ) . '" title="' . esc_attr__( 'Remove', 'dxcrm' ) . '" id="remove-' . esc_attr($field['id']) . '"></div>';
 			
-		$counter = 'countadd_'.$field['id'];
+		$counter = 'countadd_' . $field['id'];
 		$js_code = ob_get_clean ();
 		$js_code = str_replace("\n","",$js_code);
 		$js_code = str_replace("\r","",$js_code);
 		$js_code = str_replace("'","\"",$js_code);
-		$js_code = str_replace("CurrentCounter","' + ".$counter." + '",$js_code);
+		$js_code = str_replace("CurrentCounter","' + " . esc_js($counter) . " + '",$js_code);
 			
 		echo '	<script>
 					jQuery(document).ready(function() {
-						var '.$counter.' = '.$c.';
-						jQuery( document ).on( "click", "#add-'.$field['id'].'", function() {
-							'.$counter.' = '.$counter.' + 1;
-							jQuery(this).before(\''.$js_code.'\');            
+						var ' . esc_js($counter) . ' = ' . esc_js($c) . ';
+						jQuery( document ).on( "click", "#add-' . esc_js($field['id']) . '", function() {
+							' . esc_js($counter) . ' = ' . esc_js($counter) . ' + 1;
+							jQuery(this).before(\'' . wp_kses_post($js_code) . '\');            
 							update_repeater_fields();
 						});
-						jQuery( document ).on( "click", "#remove-'.$field['id'].'", function() {
+						jQuery( document ).on( "click", "#remove-' . esc_js($field['id']) . '", function() {
 							jQuery(this).parent().remove();
 						});
 					});
@@ -732,7 +729,7 @@ class Dx_Crm_Meta_Box {
 		}
 		
 		if ( $field['name'] != '' || $field['name'] != FALSE ) {
-			echo "<label for='{$field['id']}'>{$field['name']}</label>";
+			echo "<label for='" . esc_attr($field['id']) . "'>" . esc_html($field['name']) . "</label>";
 		}
 		
 		echo '</th>';
@@ -752,20 +749,20 @@ class Dx_Crm_Meta_Box {
 		if (isset($field['group'])){
 			if ($group == 'end'){
 				if ( $field['desc'] != '' ) {
-					echo "<div class='desc-field'>{$field['desc']}</div></td>";
+					echo "<div class='desc-field'>" . esc_html($field['desc']) . "</div></td>";
 				} else {
 					echo "</td>";
 				}
 			} else {
 				if ( $field['desc'] != '' ) {
-					echo "<div class='desc-field'>{$field['desc']}</div><br/>";  
+					echo "<div class='desc-field'>" . esc_html($field['desc']) . "</div><br/>";  
 				} else {
 					echo '<br/>';
 				}  
 			}    
 		} else {
 			if ( $field['desc'] != '' ) {
-				echo "<div class='desc-field'>{$field['desc']}</div></td>";
+				echo "<div class='desc-field'>" . esc_html($field['desc']) . "</div></td>";
 			} else {
 				echo "</td>";
 			}
@@ -783,7 +780,7 @@ class Dx_Crm_Meta_Box {
 	public function show_field_text( $field, $meta) {  
 	
 		$this->show_field_begin( $field, $meta );
-		echo "<input type='text' class='widefat {$field['class']}' name='{$field['id']}' id='{$field['id']}' value='{$meta}' />";
+		echo "<input type='text' class='widefat " . esc_attr($field['class']) . "' name='" . esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' value='" . esc_attr($meta) . "' />";
 		$this->show_field_end( $field, $meta );
 	} 
   
@@ -842,7 +839,7 @@ class Dx_Crm_Meta_Box {
 	public function show_field_textarea( $field, $meta ) {
 
 		$this->show_field_begin( $field, $meta );
-		echo "<textarea class='wpd-mb-meta-textarea large-text {$field['class']}' name='{$field['id']}' id='{$field['id']}' cols='60' rows='10'>{$meta}</textarea>";
+		echo "<textarea class='wpd-mb-meta-textarea large-text " . esc_attr($field['class']) . "' name='" . esc_attr($field['id']) . "' id='" . esc_attr($field['id']) . "' cols='60' rows='10'>" . esc_textarea($meta) . "</textarea>";
 		$this->show_field_end( $field, $meta );
 	}
   
