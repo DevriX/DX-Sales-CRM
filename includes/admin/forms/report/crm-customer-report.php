@@ -52,8 +52,8 @@ $activetab = isset($_GET['type']) ? $_GET['type'] : 'general' ;
 ?>
 <div id="primary" class="site-content dx-crm-report">	
 
-<h2><?php _e( 'Customer Filters' , 'dxcrm' ); ?></h2>
-<p><?php _e( 'Generate report by choosing criteria below.' , 'dxcrm' ); ?></p>
+<h2><?php esc_html_e( 'Customer Filters' , 'dxcrm' ); ?></h2>
+<p><?php esc_html_e( 'Generate report by choosing criteria below.' , 'dxcrm' ); ?></p>
 
 <table border="0" width="100%">
 	<tr>
@@ -328,7 +328,7 @@ if( isset( $_POST['customer-nonce-report'] ) && ! wp_verify_nonce( $_POST['custo
 			<script>
 				jQuery(document).ready(function() {
 				   jQuery('.dx-crm-report-table-result').DataTable({
-						"order": [[ 1, "<?php echo strtolower( $_POST['total_paid'] ); ?>" ]]
+						"order": [[ 1, "<?php echo esc_html( strtolower( $_POST['total_paid'] ) ); ?>" ]]
 				   });
 				} );
 			</script>

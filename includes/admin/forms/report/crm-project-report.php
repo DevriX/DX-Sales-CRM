@@ -35,8 +35,8 @@ $exportcsvurl = add_query_arg(
 				);
 ?>
 <div id="primary" class="site-content dx-crm-report">
-<h2><?php _e( 'Project Filters' , 'dxcrm' );?></h2>
-<p><?php _e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
+<h2><?php esc_html_e( 'Project Filters' , 'dxcrm' );?></h2>
+<p><?php esc_html_e( 'Generate report by choosing criteria below.' , 'dxcrm' );?></p>
 
 <table border="0" width="100%">
 	<tr>
@@ -47,8 +47,8 @@ $exportcsvurl = add_query_arg(
 		</td>
 		<td valign ="top">
 		<?php
-			echo '<div class="report-tab-content" id="'.$activetab.'">';
-				include_once( DX_CRM_ADMIN_DIR.'/forms/report/sub-forms/crm-project-' . $activetab . '-report.php' );
+			echo '<div class="report-tab-content" id="'.esc_html( $activetab ).'">';
+				include_once( DX_CRM_ADMIN_DIR.'/forms/report/sub-forms/crm-project-' . esc_html( $activetab ) . '-report.php' );
 		 	echo '</div>';
 		?>
 		</td>
