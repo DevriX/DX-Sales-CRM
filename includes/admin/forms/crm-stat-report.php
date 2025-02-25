@@ -16,7 +16,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; }
 <div class="wrap">
     
     <h2 class="crm-settings-title">
-    	<?php _e( 'Reports', 'dxcrm' ); ?>
+    	<?php esc_html_e( 'Reports', 'dxcrm' ); ?>
     </h2>
 	<p id="report-notice"></p>
     
@@ -90,7 +90,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; }
 						 * @package CRM System
 						 * @since 1.0.0
 						*/
-						echo '<a class = "nav-tab ' . $selected . ' " href="' . $url . '">' . $tab_value . '</a>';
+						echo '<a class = "nav-tab ' . esc_attr( $selected ) . ' " href="' . esc_url( $url ) . '">' . esc_html( $tab_value ) . '</a>';
 					}
 				}
 			?>	
@@ -103,7 +103,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; }
 				 * @package CRM System
 				 * @since 1.0.0
 				*/
-				echo '<div class="tab-content" id="' . $activetab . '">';
+				echo '<div class="tab-content" id="' . esc_attr( $activetab ) . '">';
 				
 					/**
 					 * For add-on compatibility, check if file exist first
