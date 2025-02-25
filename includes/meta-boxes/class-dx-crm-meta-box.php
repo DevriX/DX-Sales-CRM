@@ -972,46 +972,48 @@ class Dx_Crm_Meta_Box {
 	 * @access public
 	 */
 	public function show_field_file( $field, $meta ) {
+    global $post;
+
+    if ( ! is_array( $meta ) ) {
+        $meta = (array) $meta;
+    }
+
+    $this->show_field_begin( $field, $meta );
     
-		global $post;
+    echo esc_html($field['desc']) . "<br />";
 
-		if ( ! is_array( $meta ) ) {
-			$meta = (array) $meta;
-		}
+    if( ! empty( $meta ) ) {
+        $nonce = wp_create_nonce( 'at_ajax_delete' );
+        echo '<div style="margin-bottom: 10px"><strong>' . esc_html__( 'Uploaded files', 'dxcrm' ) . '</strong></div>';
+        echo '<ol class="wpd-mb-meta-upload">';
+        
+        foreach( ( array )$meta[0] as $key => $att ) {
+            if ( DX_CRM_POST_TYPE_DOC_MNGR == $post->post_type ) {
+                echo "<li>" . esc_url(get_the_guid($att)) . " (<a class='wpd-mb-meta-delete-file' href='#' rel='" . 
+                     esc_attr($nonce . '|' . $key . '|' . $field['id'] . '|' . $att) . "'>" . 
+                     esc_html__( 'Delete', 'dxcrm' ) . "</a>)</li>";
+            } else {
+                echo "<li>" . esc_url(wp_get_attachment_url($att)) . " (<a class='wpd-mb-meta-delete-file' href='#' rel='" . 
+                     esc_attr($nonce . '|' . $key . '|' . $field['id'] . '|' . $att) . "'>" . 
+                     esc_html__( 'Delete', 'dxcrm' ) . "</a>)</li>";
+            }
+        }
+        echo '</ol>';
+    }
 
-		$this->show_field_begin( $field, $meta );
-		
-		echo "{$field['desc']}<br />";
-
-		if( ! empty( $meta ) ) {
-			$nonce = wp_create_nonce( 'at_ajax_delete' );
-			echo '<div style="margin-bottom: 10px"><strong>' . __( 'Uploaded files', 'dxcrm' ) . '</strong></div>';
-			echo '<ol class="wpd-mb-meta-upload">';
-			
-				foreach( ( array )$meta[0] as $key => $att ) {
-					// if (wp_attachment_is_image($att)) continue; // what's image uploader for?
-					if ( DX_CRM_POST_TYPE_DOC_MNGR == $post->post_type ) {
-						echo "<li>" . get_the_guid( $att) . " (<a class='wpd-mb-meta-delete-file' href='#' rel='{$nonce}|$key|{$field['id']}|{$att}'>" . __( 'Delete', 'dxcrm' ) . "</a>)</li>";
-					} else {
-						echo "<li>" . wp_get_attachment_url( $att) . " (<a class='wpd-mb-meta-delete-file' href='#' rel='{$nonce}|$key|{$field['id']}|{$att}'>" . __( 'Delete', 'dxcrm' ) . "</a>)</li>";
-					}
-				}
-			echo '</ol>';
-		}
-
-		// show form upload
-		echo "<div class='wpd-mb-meta-file-upload-label'>";
-		echo "<strong>" . __( 'Upload new files', 'dxcrm' ) . "</strong>";
-		echo "</div>";
-		echo "<div class='new-files'>";
-		echo "<div class='file-input'>";
-		echo "<input type='file' name='{$field['id']}[]' />";
-		echo "</div><!-- End .file-input -->";
-		echo "<a class='wpd-mb-meta-add-file button' href='#'>" . __( 'Add more files', 'dxcrm' ) . "</a>";
-		echo "</div><!-- End .new-files -->";
-		echo "</td>";
-		$this->show_field_end( $field, $meta );
-	}
+    // show form upload
+    echo "<div class='wpd-mb-meta-file-upload-label'>";
+    echo "<strong>" . esc_html__( 'Upload new files', 'dxcrm' ) . "</strong>";
+    echo "</div>";
+    echo "<div class='new-files'>";
+    echo "<div class='file-input'>";
+    echo "<input type='file' name='" . esc_attr($field['id']) . "[]' />";
+    echo "</div><!-- End .file-input -->";
+    echo "<a class='wpd-mb-meta-add-file button' href='#'>" . esc_html__( 'Add more files', 'dxcrm' ) . "</a>";
+    echo "</div><!-- End .new-files -->";
+    echo "</td>";
+    $this->show_field_end( $field, $meta );
+}
   
 	/**
 	 * Show Image Field.
