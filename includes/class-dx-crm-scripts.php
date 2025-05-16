@@ -11,6 +11,10 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
+// Ignoring the following warnings for this file.
+// phpcs:disable WordPress.WP.EnqueuedResourceParameters.NotInFooter
+// phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
+
 /**
  * Script Class
  *
@@ -35,8 +39,8 @@ class Dx_Crm_Scripts{
 		global  $post;
 		
 		// register styles
-		wp_register_style('dx-crm-admin', DX_CRM_ASSETS_URL . '/css/min/dx-crm-admin.min.css' );
-		wp_register_style('dx-crm-progress_rating', DX_CRM_ASSETS_URL . '/css/min/progress-rating.min.css' );
+		wp_register_style('dx-crm-admin', DX_CRM_ASSETS_URL . '/css/min/dx-crm-admin.min.css', array(), DX_CRM_VERSION );
+		wp_register_style('dx-crm-progress_rating', DX_CRM_ASSETS_URL . '/css/min/progress-rating.min.css', array(), DX_CRM_VERSION );
 		wp_enqueue_style( 'dx-crm-admin' );
 		// register scripts
 		wp_register_script('dx-crm-admin-jquery-barrating', DX_CRM_ASSETS_URL.'/scripts/min/jquery.barrating.min.js',array('jquery') , DX_CRM_VERSION, false );

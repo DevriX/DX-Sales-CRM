@@ -5,6 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Ignoring the following warnings for this file. We are using templating way to insert images.
+// phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+
+// Ignoring the following warnings for this file.
+// phpcs:disable WordPress.WP.EnqueuedResourceParameters.NotInFooter
+// phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
+
 /**
  * Custom Meta Box Class
  *
