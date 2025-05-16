@@ -208,8 +208,8 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 			// Enqueu JQuery select2 library, use proper version.
 			wp_enqueue_style( 'wpd-mb-chosen-css', $plugin_path . '/scripts/chosen/chosen.min.css', array(), null );
 			wp_enqueue_style( 'wpd-mb-chosen-custom-css', $plugin_path . '/scripts/chosen/chosen-custom.css', array(), null );
-			wp_enqueue_script( 'wpd-mb-chosen-js', $plugin_path . '/scripts/chosen/chosen.jquery.min.js', array( 'jquery' ), false, true );
-			wp_enqueue_script( 'wpd-mb-chosenajax-js', $plugin_path . '/scripts/chosen/ajax-chosen.jquery.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'wpd-mb-chosen-js', $plugin_path . '/scripts/chosen/chosen.jquery.min.js', array( 'jquery' ), DX_CRM_VERSION, true );
+			wp_enqueue_script( 'wpd-mb-chosenajax-js', $plugin_path . '/scripts/chosen/ajax-chosen.jquery.js', array( 'jquery' ), DX_CRM_VERSION, true );
 		}
 
 		/**
@@ -491,7 +491,7 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 				$plugin_path = $this->SelfPath;
 				wp_enqueue_style( 'wpd-mb-meta-jquery-ui-css', $plugin_path . '/scripts/jquery-ui/jquery-ui.css' );
 				wp_enqueue_script( 'jquery-ui' );
-				wp_enqueue_script( 'wpd-mb-meta-timepicker', $plugin_path . '/scripts/jquery-ui/jquery-ui-timepicker-addon.js', array( 'jquery-ui-slider', 'jquery-ui-datepicker' ), false, true );
+				wp_enqueue_script( 'wpd-mb-meta-timepicker', $plugin_path . '/scripts/jquery-ui/jquery-ui-timepicker-addon.js', array( 'jquery-ui-slider', 'jquery-ui-datepicker' ), DX_CRM_VERSION, true );
 			}
 		}
 
@@ -509,7 +509,7 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 				wp_enqueue_style( 'wpd-mb-meta-jquery-ui-css', $this->SelfPath . '/css/datetimepicker/date-time-picker.css' );
 				wp_register_script( 'wpd-mb-datepicker-slider-script', $this->SelfPath . '/scripts/datetimepicker/jquery-ui-slider-Access.js' );
 				wp_enqueue_script( 'wpd-mb-datepicker-slider-script' );
-				wp_register_script( 'wpd-mb-datepicker-addon-script', $this->SelfPath . '/scripts/datetimepicker/jquery-date-timepicker-addon.js', array( 'wps-deals-datepicker-slider-script' ), false, true );
+				wp_register_script( 'wpd-mb-datepicker-addon-script', $this->SelfPath . '/scripts/datetimepicker/jquery-date-timepicker-addon.js', array( 'wps-deals-datepicker-slider-script' ), DX_CRM_VERSION, true );
 				wp_enqueue_script( 'wpd-mb-datepicker-addon-script' );
 			}
 		}

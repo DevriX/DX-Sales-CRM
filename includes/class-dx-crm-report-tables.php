@@ -65,9 +65,9 @@ class Dx_Crm_Report_Tables{
 		wp_enqueue_style( 'chosen' );
 
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'chosen', DX_CRM_ASSETS_URL . '/scripts/min/chosen.jquery.min.js', array( 'jquery' ), false, true );  
+		wp_enqueue_script( 'chosen', DX_CRM_ASSETS_URL . '/scripts/min/chosen.jquery.min.js', array( 'jquery' ), DX_CRM_VERSION, true );  
 		wp_enqueue_script( 'jquery-ui-datepicker' );  
-		wp_enqueue_script( 'dx-crm-report', DX_CRM_ASSETS_URL . '/scripts/min/dx-crm-report.min.js', array(), false, true ); 
+		wp_enqueue_script( 'dx-crm-report', DX_CRM_ASSETS_URL . '/scripts/min/dx-crm-report.min.js', array(), DX_CRM_VERSION, true ); 
 		
 		//wp_enqueue_script( 'dx-crm-admin-script' );
 		/* wp_localize_script( 'dx-crm-admin-script', 
