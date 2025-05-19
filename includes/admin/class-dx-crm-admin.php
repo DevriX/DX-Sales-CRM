@@ -1569,34 +1569,29 @@ class Dx_Crm_Admin{
 		$prefix = DX_CRM_META_PREFIX;
 	
 		if ( $post_type == DX_CRM_POST_TYPE_COMPANY ) {
-			
-			$html = '';
-			$project_id = isset( $_GET[$prefix.'filter_by_company_type'] ) ? $_GET[$prefix.'filter_by_company_type'] : '';
-			$html .= '<select name="'.$prefix.'filter_by_company_type'.'" id="crm_filter_by_company_type">
-							<option value="">Select a Type</option>';
-			
-			$company_type = array( 
-									'CUSTOMER'		=> __('Client', 'dxcrm'),
-									'PARTNER'		=> __('Partner', 'dxcrm'),									
-									'PROSPECT'		=> __('Prospect', 'dxcrm'),									
-					  			);
-				
-				foreach ( $company_type as $company => $company_label) {
-				
-					if( $project_id == $company ){
+
+			$project_id = isset( $_GET[ $prefix . 'filter_by_company_type' ] ) ? $_GET[ $prefix . 'filter_by_company_type' ] : '';
+				echo '<select name="' . esc_attr( $prefix ) . 'filter_by_company_type' . '" id="crm_filter_by_company_type"><option value=""> . __( "Select a Type", "dxcrm" ) . </option>';
+
+				$company_type = array(
+					'CUSTOMER' => __( 'Client', 'dxcrm' ),
+					'PARTNER'  => __( 'Partner', 'dxcrm' ),
+					'PROSPECT' => __( 'Prospect', 'dxcrm' ),
+				);
+
+				foreach ( $company_type as $company => $company_label ) {
+		
+					if ( $project_id == $company ) {
 						$selected = 'Selected=Selected';
 					} else {
 						$selected = '';
-					}	
-					
-					$html.='<option class="crm-project-check" id="crm_filter_by_company_type_'.$company.'" value="'.$company.'" '.$selected.'>'.$company_label.'</option>';
+					}
+
+					echo '<option class="crm-project-check" id="crm_filter_by_company_type_' . esc_attr( $company ) . '" value="' . esc_attr( $company ) . '" ' . esc_attr( $selected ) . '>' . esc_attr( $company_label ) . '</option>';
 				}
-			
-		
-			$html .= '</select>';
-			
-			echo wp_kses_post( $html );
-	    }
+
+				echo '</select>';
+		}
 	}
 	
 	/**
