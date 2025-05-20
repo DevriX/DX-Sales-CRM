@@ -1319,66 +1319,52 @@ class Dx_Crm_Admin{
 		$prefix = DX_CRM_META_PREFIX;
 		
 		if ( $post_type == DX_CRM_POST_TYPE_PROJECTS ) {
-			
-			$html = '';
-
-			$filter_by_status = ( isset( $_GET[$prefix.'filter_by_status'] ) && strlen( $_GET[$prefix.'filter_by_status'] ) > 0 ) ? (int)$_GET[$prefix.'filter_by_status'] : '';
-
-
-			$html .= '<select name="'.$prefix.'filter_by_status'.'" id="crm_filter_by_status">
-							<option value="">Select Status</option>';
-			
+			$filter_by_status = ( isset( $_GET[ $prefix . 'filter_by_status' ] ) && strlen( $_GET[ $prefix . 'filter_by_status' ] ) > 0 ) ? (int) $_GET[ $prefix . 'filter_by_status' ] : '';
+		
+			echo '<select name="' . esc_attr( $prefix ) . 'filter_by_status' . '" id="crm_filter_by_status">
+				<option value="">Select Status</option>';
+		
 			$projects_status = apply_filters( 'dx_crm_project_status', array() );
-
-			//$pro_assign_customer = get_post_meta( $post->ID, $prefix . 'pro_assign_customer', true );
-				
-				foreach ( $projects_status as $key => $project_status ) {
-					if( $filter_by_status === (int)$key ){
-						$selected = 'Selected=Selected';
-					} else {
-						$selected = '';
-					}
-					
-					$html.='<option class="crm-customer-check" id="crm_filter_status_'.$key.'" value="'.$key.'" '.$selected.'>'.$project_status.'</option>';
-				}
-			
 		
-			$html .= '</select>';
-
-			echo wp_kses_post( $html );
-	    }
-	
+			// $pro_assign_customer = get_post_meta( $post->ID, $prefix . 'pro_assign_customer', true );
+		
+			foreach ( $projects_status as $key => $project_status ) {
+				if ( $filter_by_status === (int) $key ) {
+					$selected = 'Selected=Selected';
+				} else {
+					$selected = '';
+				}
+		
+				echo '<option class="crm-customer-check" id="crm_filter_status_' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '" ' . esc_attr( $selected ) . '>' . esc_attr( $project_status ) . '</option>';
+			}
+		
+		
+			echo '</select>';
+		}
+		
 		if ( $post_type == DX_CRM_POST_TYPE_CUSTOMERS ) {
-			
-			$html = '';
-			$project_id = isset( $_GET[$prefix.'filter_by_project'] ) ? $_GET[$prefix.'filter_by_project'] : '';
-			$html .= '<select name="'.$prefix.'filter_by_project'.'" id="crm_filter_by_project">
+			$project_id = isset( $_GET[ $prefix . 'filter_by_project' ] ) ? esc_html( $_GET[ $prefix . 'filter_by_project' ] ) : '';
+			echo '<select name="' . esc_attr( $prefix ) . 'filter_by_project' . '" id="crm_filter_by_project">
 							<option value="">Select a Project</option>';
-			
-			$args = array(
-							'post_type'=> DX_CRM_POST_TYPE_PROJECTS,
-						);
-						
-			$projects = get_posts( $args );
-				
-				//$pro_assign_customer = get_post_meta( $post->ID, $prefix . 'pro_assign_customer', true );
-				
-				foreach ( $projects as $project ) {
-				
-					if( $project_id == $project->ID ){
-						$selected = 'Selected=Selected';
-					} else {
-						$selected = '';
-					}	
-					
-					$html.='<option class="crm-project-check" id="crm_filter_project_'.$project->ID.'" value="'.$project->ID.'" '.$selected.'>'.$project->post_title .'</option>';
-				}
-			
 		
-			$html .= '</select>';
-			
-			echo wp_kses_post( $html );
-	    }
+			$args = array(
+				'post_type' => DX_CRM_POST_TYPE_PROJECTS,
+			);
+		
+			$projects = get_posts( $args );
+			foreach ( $projects as $project ) {
+		
+				if ( $project_id == $project->ID ) {
+					$selected = 'Selected=Selected';
+				} else {
+					$selected = '';
+				}
+		
+				echo '<option class="crm-project-check" id="crm_filter_project_' . esc_attr( $project->ID ) . '" value="' . esc_attr( $project->ID ) . '" ' . esc_attr( $selected ) . '>' . esc_attr( $project->post_title ) . '</option>';
+			}
+		
+			echo '</select>';
+		}
 	}
 	
 	/**
@@ -1571,7 +1557,7 @@ class Dx_Crm_Admin{
 		if ( $post_type == DX_CRM_POST_TYPE_COMPANY ) {
 
 			$project_id = isset( $_GET[ $prefix . 'filter_by_company_type' ] ) ? $_GET[ $prefix . 'filter_by_company_type' ] : '';
-				echo '<select name="' . esc_attr( $prefix ) . 'filter_by_company_type' . '" id="crm_filter_by_company_type"><option value=""> . __( "Select a Type", "dxcrm" ) . </option>';
+				echo '<select name="' . esc_attr( $prefix ) . 'filter_by_company_type' . '" id="crm_filter_by_company_type"><option value=""> ' . __( "Select a Type", "dxcrm" ) . '</option>';
 
 				$company_type = array(
 					'CUSTOMER' => __( 'Client', 'dxcrm' ),
