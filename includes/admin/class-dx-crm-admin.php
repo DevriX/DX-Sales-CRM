@@ -1557,7 +1557,7 @@ class Dx_Crm_Admin{
 		if ( $post_type == DX_CRM_POST_TYPE_COMPANY ) {
 
 			$project_id = isset( $_GET[ $prefix . 'filter_by_company_type' ] ) ? $_GET[ $prefix . 'filter_by_company_type' ] : '';
-				echo '<select name="' . esc_attr( $prefix ) . 'filter_by_company_type' . '" id="crm_filter_by_company_type"><option value=""> ' . __( "Select a Type", "dxcrm" ) . '</option>';
+				echo '<select name="' . esc_attr( $prefix ) . 'filter_by_company_type' . '" id="crm_filter_by_company_type"><option value=""> ' . esc_html( "Select a Type", "dxcrm" ) . '</option>';
 
 				$company_type = array(
 					'CUSTOMER' => __( 'Client', 'dxcrm' ),
