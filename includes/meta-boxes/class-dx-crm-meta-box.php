@@ -1060,7 +1060,7 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 		 */
 		public function show_field_image( $field, $meta ) {
 			$this->show_field_begin( $field, $meta );
-			echo wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", 'nonce-delete-mupload_' . esc_attr( $field['id'] ), false, false );
+			echo wp_kses_post( wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", 'nonce-delete-mupload_' . esc_attr( $field['id'] ), false, false ) );
 
 			if ( is_array( $meta ) ) {
 				if ( isset( $meta[0] ) && is_array( $meta[0] ) ) {
