@@ -232,7 +232,7 @@ class Dx_Crm_Dashboard_Settings {
 													</div>
 													<div class="more">
 													<?php if( current_user_can('administrator') ){ ?>
-														<a href="post-new.php?post_type=<?php echo esc_url(DX_CRM_POST_TYPE_CUSTOMERS); ?>" class="dx-crm-box-bottom">
+														<a href="post-new.php?post_type=<?php echo esc_attr( DX_CRM_POST_TYPE_CUSTOMERS ); ?>" class="dx-crm-box-bottom">
 															<label class="dx-crm-add-new"><?php esc_html_e( 'Add New', 'dxcrm' ); ?></label>
 														</a>
 														
@@ -317,7 +317,7 @@ class Dx_Crm_Dashboard_Settings {
 													</div>
 													<div class="more">
 													<?php if( current_user_can('administrator') ){ ?>
-														<a href="post-new.php?post_type=<?php echo esc_url(DX_CRM_POST_TYPE_PROJECTS); ?>" class="dx-crm-box-bottom">
+														<a href="post-new.php?post_type=<?php echo esc_attr( DX_CRM_POST_TYPE_PROJECTS ); ?>" class="dx-crm-box-bottom">
 															<label class="dx-crm-add-new"><?php esc_html_e( 'Add New', 'dxcrm' ); ?></label>
 														</a>
 														<a href="javascript:void(0);" title="<?php esc_attr_e('Add New Project', 'dxcrm'); ?>" class="dx-crm-box-bottom dx-crm-add-project-link">
