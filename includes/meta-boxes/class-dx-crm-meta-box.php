@@ -1060,7 +1060,7 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 		 */
 		public function show_field_image( $field, $meta ) {
 			$this->show_field_begin( $field, $meta );
-			$html = wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", 'nonce-delete-mupload_' . esc_attr( $field['id'] ), false, false );
+			echo wp_nonce_field( "wpd-mb-meta-delete-mupload_{$field['id']}", 'nonce-delete-mupload_' . esc_attr( $field['id'] ), false, false );
 
 			if ( is_array( $meta ) ) {
 				if ( isset( $meta[0] ) && is_array( $meta[0] ) ) {
@@ -1068,18 +1068,19 @@ if ( ! class_exists( 'Dx_Crm_Meta_Box' ) ) :
 				}
 			}
 
-			if ( is_array( $meta ) && isset( $meta['src'] ) && $meta['src'] != '' ) {
-				$html .= "<span class='mupload_img_holder'><img src='" . esc_url( $meta['src'] ) . "' style='height: 150px;width: 150px;' /></span>";
-				$html .= "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[id]' id='" . esc_attr( $field['id'] ) . "[id]' value='" . esc_attr( $meta['id'] ) . "' />";
-				$html .= "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[src]' id='" . esc_attr( $field['id'] ) . "[src]' value='" . esc_url( $meta['src'] ) . "' />";
-				$html .= "<input class='dx-crm-meta-delete_image_button button-secondary' type='button' rel='" . esc_attr( $field['id'] ) . "' value='" . esc_attr__( 'Delete Image', 'dxcrm' ) . "' />";
+			if ( is_array( $meta ) && isset( $meta['src'] ) ) {
+				if( ! empty( $meta['src'] ) ) {
+					echo "<span class='mupload_img_holder'><img src='" . esc_url( $meta['src'] ) . "' style='height: 150px;width: 150px;' /></span>";
+				}
+				echo "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[id]' id='" . esc_attr( $field['id'] ) . "[id]' value='" . esc_attr( $meta['id'] ) . "' />";
+				echo "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[src]' id='" . esc_attr( $field['id'] ) . "[src]' value='" . esc_url( $meta['src'] ) . "' />";
+				echo "<input class='dx-crm-meta-delete_image_button button-secondary' type='button' rel='" . esc_attr( $field['id'] ) . "' value='" . esc_attr__( 'Delete Image', 'dxcrm' ) . "' />";
 			} else {
-				$html .= "<span class='mupload_img_holder'></span>";
-				$html .= "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[id]' id='" . esc_attr( $field['id'] ) . "[id]' value='' />";
-				$html .= "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[src]' id='" . esc_attr( $field['id'] ) . "[src]' value='' />";
-				$html .= "<input class='dx-crm-meta-upload_image_button button-secondary' type='button' rel='" . esc_attr( $field['id'] ) . "' value='" . esc_attr__( 'Upload Image', 'dxcrm' ) . "' />";
+				echo "<span class='mupload_img_holder'></span>";
+				echo "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[id]' id='" . esc_attr( $field['id'] ) . "[id]' value='' />";
+				echo "<input type='hidden' name='" . esc_attr( $field['id'] ) . "[src]' id='" . esc_attr( $field['id'] ) . "[src]' value='' />";
+				echo "<input class='dx-crm-meta-upload_image_button button-secondary' type='button' rel='" . esc_attr( $field['id'] ) . "' value='" . esc_attr__( 'Upload Image', 'dxcrm' ) . "' />";
 			}
-			echo wp_kses_post( $html );
 			$this->show_field_end( $field, $meta );
 		}
 
