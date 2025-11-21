@@ -17,21 +17,21 @@ if ( !defined( 'ABSPATH' ) ) exit;
 <div class="dx-crm-pro-popup-content">
 
 	<div class="dx-crm-pro-header">
-		<div class="dx-crm-pro-header-title"><?php _e( 'Add New Project', 'dxcrm' );?></div>
-		<div class="dx-crm-pro-popup-close"><a href="javascript:void(0);" class="dx-crm-pro-close-button"><img src="<?php echo DX_CRM_IMG_URL;?>/tb-close.png" title="Close"></a></div>
+		<div class="dx-crm-pro-header-title"><?php esc_html_e( 'Add New Project', 'dxcrm' );?></div>
+		<div class="dx-crm-pro-popup-close"><a href="javascript:void(0);" class="dx-crm-pro-close-button"><img src="<?php echo esc_url( DX_CRM_IMG_URL ); ?>/tb-close.png" title="<?php esc_attr_e( 'Close', 'dxcrm' ); ?>"></a></div>
 	</div>
 	
 	<div class="dx-crm-pro-popup">
 		<div class="dx-crm-pro-add-project-title">
 			<div>
-				<label for="dx_crm_project_title"><?php _e( 'Enter Project Title', 'dxcrm' );?></label>
+				<label for="dx_crm_project_title"><?php esc_html_e( 'Enter Project Title', 'dxcrm' );?></label>
 				<input type="text" class="dx_crm_project_title_text" name="dx_crm_project_title" id="dx_crm_project_title" size="33">
 			</div>
-			<div class="dx-crm-pro-title-error"><?php _e('Please Enter title for Project', 'dxcrm') ?></div>
-			<div class="dx-crm-pro-title-success"><?php _e('Project Added Successfully.', 'dxcrm') ?></div>
+			<div class="dx-crm-pro-title-error"><?php esc_html_e( 'Please Enter title for Project', 'dxcrm' ); ?></div>
+			<div class="dx-crm-pro-title-success"><?php esc_html_e( 'Project Added Successfully.', 'dxcrm' ); ?></div>
 			<div>
-				<input type="button" class="dx_crm_add_project_button button" id="dx_crm_add_project_button" value="Add Project" />	
-				<input type="button" class="dx_crm_add_more_project_button button" id="dx_crm_add_more_project_button" value="Save and Add More" />			
+				<input type="button" class="dx_crm_add_project_button button" id="dx_crm_add_project_button" value="<?php esc_attr_e( 'Add Project', 'dxcrm' ); ?>" />	
+				<input type="button" class="dx_crm_add_more_project_button button" id="dx_crm_add_more_project_button" value="<?php esc_attr_e( 'Save and Add More', 'dxcrm' ); ?>" />			
 			</div>
 			
 		</div>		

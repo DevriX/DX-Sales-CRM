@@ -21,10 +21,9 @@ $cust_assign_customer = array();
 $cust_assign_customer = get_post_meta( $post->ID, $prefix . 'cust_assign_customer', true );
 ?>
 
-<!--<select class="postform" name="<?php echo $prefix ?>cust_assign_customer" id="<?php echo $prefix.'cust_assign_customer'.$customer_user->ID; ?>">-->
-<select class="postform" name="<?php echo $prefix ?>cust_assign_customer">
+<select class="postform" name="<?php echo esc_attr( $prefix ) ?>cust_assign_customer">
 
-<option value="">None</option>
+<option value=""><?php esc_html_e( 'None', 'dxcrm' ); ?></option>
 	<?php
 		$args = array(
 						'role' => DX_CRM_CUSTOMER_ROLE,
@@ -35,7 +34,7 @@ $cust_assign_customer = get_post_meta( $post->ID, $prefix . 'cust_assign_custome
 		foreach ( $customer_users as $customer_user ) {
 		?>
 		<?php /* ?>	<li> <input type="checkbox" id="<?php echo $prefix.'cust_assign_customer'.$customer_user->ID; ?>" name="<?php echo $prefix ?>cust_assign_customer[]" value="<?php echo $customer_user->ID; ?>" <?php if( !empty( $cust_assign_customer ) ) { checked( in_array( $customer_user->ID, $cust_assign_customer ), true ); } ?>> <label for="<?php echo $prefix.'cust_assign_customer'.$customer_user->ID; ?>"> <?php echo $customer_user->display_name; ?> </label> </li><?php */ ?>
-		<option value="<?php echo $customer_user->ID; ?>" <?php if( !empty( $cust_assign_customer ) && $cust_assign_customer == $customer_user->ID ) { echo 'selected';  } ?>><?php echo $customer_user->display_name; ?></option>
+		<option value="<?php echo esc_attr( $customer_user->ID ); ?>" <?php if( !empty( $cust_assign_customer ) && $cust_assign_customer == $customer_user->ID ) { echo 'selected';  } ?>><?php echo esc_html( $customer_user->display_name ); ?></option>
 		<?php
 		}
 	?>

@@ -35,7 +35,7 @@ if( ! class_exists( 'Sales_CRM_Project' ) ){
 			if( isset( $status[$status_id] ) ){
 				return $status[$status_id];
 			}
-			return new WP_Error( 'undefined_status', __( 'This project status does not exist! Please update this record..', 'dxcrm' ) );
+			return new WP_Error('undefined_status', esc_html__('This project status does not exist! Please update this record..', 'dxcrm'));
 		}
 	}
 	

@@ -12,6 +12,10 @@ Author URI: https://devrix.com
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
+// Ignoring the following warnings for this file. We need to use direct database query but rest assured, we are using it in a safe way.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+
 /**
  * Basic plugin definitions 
  * 

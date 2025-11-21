@@ -91,7 +91,7 @@ class Dx_Crm_Public {
 
 			if( ! empty( $valid_user ) ) {
 				$user_data = get_user_by( 'id', $valid_user );
-				return new WP_Error( 'duplicate_user', __( 'Sorry ' . $user_data->display_name . ' user already assign to some.', 'dxcrm' ) );
+				return new WP_Error( 'duplicate_user', sprintf( esc_html__( 'Sorry %s user already assign to some.', 'dxcrm' ), esc_html($user_data->display_name) ) );
 			}
 			
 			/**
@@ -129,7 +129,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return __( 'New customer has been added!', 'dxcrm' );
+				return esc_html__( 'New customer has been added!', 'dxcrm' );
 			} else {
 				
 				/**
@@ -139,7 +139,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return new WP_Error( 'failed_saving', __( 'Failed to add new customer! Please try again.', 'dxcrm' ) );
+				return new WP_Error( 'failed_saving', esc_html__( 'Failed to add new customer! Please try again.', 'dxcrm' ) );
 			}
 		}	
 	}
@@ -222,7 +222,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return __( 'New project has been added!', 'dxcrm' );
+				return esc_html__( 'New project has been added!', 'dxcrm' );
 			} else {
 				
 				/**
@@ -232,7 +232,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return new WP_Error( 'failed_saving', __( 'Failed to add new project! Please try again.', 'dxcrm' ) );
+				return new WP_Error( 'failed_saving', esc_html__( 'Failed to add new project! Please try again.', 'dxcrm' ) );
 			}
 			
 		}
@@ -325,7 +325,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return __( 'New company entry has been added!', 'dxcrm' );
+				return esc_html__( 'New company entry has been added!', 'dxcrm' );
 			} else {
 				
 				/**
@@ -335,7 +335,7 @@ class Dx_Crm_Public {
 				 * @package CRM System
 				 * @since 1.0.0
 				 */
-				return new WP_Error( 'failed_saving', __( 'Failed to add new company! Please try again.', 'dxcrm' ) );
+				return new WP_Error( 'failed_saving', esc_html__( 'Failed to add new company! Please try again.', 'dxcrm' ) );
 			}
 		}
 	}
@@ -347,10 +347,10 @@ class Dx_Crm_Public {
 	 * @since 1.0.0
 	 */
 	function dx_crm_notice_action( $data ){
-		echo sprintf( 
+		echo wp_kses_post(sprintf( 
 			'<p class="crm-error-field">%s</p>',
-			$data
-		);
+			esc_html($data)
+		));
 	}
 	
 	/**
@@ -454,15 +454,15 @@ class Dx_Crm_Public {
 					?><table class="form-table">
 						<tbody>
 							<tr>
-								<th width="35%"><?php _e('Project Title', 'dxcrm'); ?></th>
-								<td><?php echo $title; ?></td>
+								<th width="35%"><?php esc_html__('Project Title', 'dxcrm'); ?></th>
+								<td><?php echo esc_html($title); ?></td>
 							</tr>
 							<tr>
-								<th><?php _e('Company Name', 'dxcrm'); ?></th>
-								<td><?php echo (isset($company_name) && !empty($company_name)) ? $company_name : '<span class="dashicons dashicons-minus"></span>'; ?></td>
+								<th><?php esc_html__('Company Name', 'dxcrm'); ?></th>
+								<td><?php echo (isset($company_name) && !empty($company_name)) ? esc_html($company_name) : '<span class="dashicons dashicons-minus"></span>'; ?></td>
 							</tr>
 							<tr>
-								<th><?php _e('Start Date', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Start Date', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -473,7 +473,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'pro_start_date'][0] ) 
 											&& ! empty ( $user_data[$prefix.'pro_start_date'][0] ) ){
-											echo date( "M d, Y", strtotime( $user_data[$prefix.'pro_start_date'][0] ) );
+											echo wp_kses_post(date( "M d, Y", strtotime( $user_data[$prefix.'pro_start_date'][0] ) ));
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -481,7 +481,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Planed End Date', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Planed End Date', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -492,7 +492,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'pro_end_date'][0] ) 
 											&& ! empty ( $user_data[$prefix.'pro_end_date'][0] ) ){
-											echo date( "M d, Y", strtotime( $user_data[$prefix.'pro_end_date'][0] ) );
+											echo wp_kses_post(date( "M d, Y", strtotime( $user_data[$prefix.'pro_end_date'][0] ) ));
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -500,11 +500,11 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Ongoing Project', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Ongoing Project', 'dxcrm'); ?></th>
 								<td><?php echo (isset($user_data[$prefix.'pro_ongoing'][0]) && !empty($user_data[$prefix.'pro_ongoing'][0])) ? 'Yes' : 'No'; ?></td>
 							</tr>
 							<tr>
-								<th><?php _e('Real End of First Milestone', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Real End of First Milestone', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -515,7 +515,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'pro_real_end_date_first_mile'][0] ) 
 											&& ! empty ( $user_data[$prefix.'pro_real_end_date_first_mile'][0] ) ){
-											echo date( "M d, Y", strtotime( $user_data[$prefix.'pro_real_end_date_first_mile'][0] ) );
+											echo wp_kses_post(date( "M d, Y", strtotime( $user_data[$prefix.'pro_real_end_date_first_mile'][0] ) ));
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -523,7 +523,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Real End Date', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Real End Date', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -534,7 +534,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'pro_real_end_date_last_conversation'][0] ) 
 											&& ! empty ( $user_data[$prefix.'pro_real_end_date_last_conversation'][0] ) ){
-											echo date( "M d, Y", strtotime( $user_data[$prefix.'pro_real_end_date_last_conversation'][0] ) );
+											echo wp_kses_post(date( "M d, Y", strtotime( $user_data[$prefix.'pro_real_end_date_last_conversation'][0] ) ));
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -542,7 +542,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Agreed Cost', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Agreed Cost', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -558,10 +558,10 @@ class Dx_Crm_Public {
 												switch( $user_data[$prefix.'project_currency'][0] ){
 													case 'USD':
 													default:
-														echo '$';
+														echo wp_kses_post('$');
 													break;
 													case 'EUR':
-														echo '€';
+														echo wp_kses_post('€');
 													break;
 												}
 											}
@@ -574,7 +574,7 @@ class Dx_Crm_Public {
 												){
 												echo number_format( $user_data[$prefix.'pro_agreed_cost'][0], 2 );													
 											}else{
-												echo $user_data[$prefix.'pro_agreed_cost'][0];
+												echo wp_kses_post($user_data[$prefix.'pro_agreed_cost'][0]);
 											}
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
@@ -583,7 +583,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Project Status', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Project Status', 'dxcrm'); ?></th>
 								<td>
 									<?php
 										/**
@@ -595,9 +595,9 @@ class Dx_Crm_Public {
 										if( isset($user_data[$prefix.'project_status'][0]) ){
 											$status = Sales_CRM_Project::display_status_string( $user_data[$prefix.'project_status'][0] );
 											if( ! is_wp_error( $status ) ){
-												echo $status;
+												echo wp_kses_post($status);
 											}else{
-												echo $status->get_error_message();
+												echo wp_kses_post($status->get_error_message());
 											}
 										}else{
 											echo '<span class="dashicons dashicons-minus"></span>';
@@ -606,7 +606,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Project Cost', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Project Cost', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -622,10 +622,10 @@ class Dx_Crm_Public {
 												switch( $user_data[$prefix.'project_currency'][0] ){
 													case 'USD':
 													default:
-														echo '$';
+														echo wp_kses_post('$');
 													break;
 													case 'EUR':
-														echo '€';
+														echo wp_kses_post('€');
 													break;
 												}
 											}
@@ -638,7 +638,7 @@ class Dx_Crm_Public {
 												){
 												echo number_format( $user_data[$prefix.'project_total'][0], 2 );													
 											}else{
-												echo $user_data[$prefix.'project_total'][0];
+												echo wp_kses_post($user_data[$prefix.'project_total'][0]);
 											}
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
@@ -647,7 +647,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>						
 							<tr>
-								<th><?php _e('Project Responsible person', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Project Responsible person', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -658,7 +658,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'project_assigned_by'][0] ) 
 											&& ! empty ( $user_data[$prefix.'project_assigned_by'][0] ) ){
-											echo $user_data[$prefix.'project_assigned_by'][0];
+											echo wp_kses_post($user_data[$prefix.'project_assigned_by'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -666,7 +666,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Customers', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Customers', 'dxcrm'); ?></th>
 								<td>
 								<?php
 									/**
@@ -680,7 +680,7 @@ class Dx_Crm_Public {
 										) );										
 										$customers_count = count( $customers );
 										foreach ( $customers as $customer ) {
-											echo ( --$customers_count > 0 ) ? $customer->post_title . ', ' : $customer->post_title;
+											echo ( --$customers_count > 0 ) ? wp_kses_post($customer->post_title . ', ') : wp_kses_post($customer->post_title);
 										}
 									} else{
 										echo '<span class="dashicons dashicons-minus"></span>';
@@ -764,7 +764,7 @@ class Dx_Crm_Public {
 								<td colspan="2">
 								<?php 
 									$img='<img class="crm_center_company_logo" src="'. $logo_url['src'] .'" style="margin: 0 auto; display: block;" alt="logo">';
-									echo ( isset( $user_data[$prefix.'company_logo'][0] ) && ! empty ( $user_data[ $prefix.'company_logo' ][0] ) ) ? $img : '<span class="dashicons dashicons-minus"></span>'; 
+									echo ( isset( $user_data[$prefix.'company_logo'][0] ) && ! empty ( $user_data[ $prefix.'company_logo' ][0] ) ) ? wp_kses_post($img) : '<span class="dashicons dashicons-minus"></span>'; 
 								?>
 								</td>
 							</tr>
@@ -772,11 +772,11 @@ class Dx_Crm_Public {
 								}
 							?>
 							<tr>
-								<th width="35%"><?php _e('Company Name', 'dxcrm'); ?></th>
-								<td><?php echo $title; ?></td>
+								<th width="35%"><?php esc_html__('Company Name', 'dxcrm'); ?></th>
+								<td><?php echo esc_html($title); ?></td>
 							</tr>							
 							<tr>
-								<th><?php _e('Responsible Person', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Responsible Person', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -787,7 +787,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'company_assigned_by'][0] ) 
 											&& ! empty ( $user_data[$prefix.'company_assigned_by'][0] ) ){
-											echo $user_data[$prefix.'company_assigned_by'][0];
+											echo wp_kses_post($user_data[$prefix.'company_assigned_by'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -795,7 +795,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Company Type', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Company Type', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -806,7 +806,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'company_type'][0] ) 
 											&& ! empty ( $user_data[$prefix.'company_type'][0] ) ){
-											echo ucfirst( strtolower( $user_data[$prefix.'company_type'][0] ) );
+											echo wp_kses_post(ucfirst( strtolower( $user_data[$prefix.'company_type'][0] ) ));
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -814,7 +814,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Industry', 'dxcrm'); ?></th>								
+								<th><?php esc_html__('Industry', 'dxcrm'); ?></th>								
 								<td>
 									<?php 
 										/**
@@ -827,7 +827,7 @@ class Dx_Crm_Public {
 											&& ! empty ( $user_data[$prefix.'company_industry'][0] )
 											&& isset ( $company_industry[$user_data[$prefix.'company_industry'][0]] )
 											&& ! empty ( $company_industry[$user_data[$prefix.'company_industry'][0]] )	){
-											echo $company_industry[$user_data[$prefix.'company_industry'][0]];
+											echo wp_kses_post($company_industry[$user_data[$prefix.'company_industry'][0]]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -835,7 +835,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('No. Of Employees', 'dxcrm'); ?></th>
+								<th><?php esc_html__('No. Of Employees', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -848,7 +848,7 @@ class Dx_Crm_Public {
 											&& ! empty ( $user_data[$prefix.'company_employees'][0] )
 											&& isset ( $company_employees[$user_data[$prefix.'company_employees'][0]] )
 											&& ! empty ( $company_employees[$user_data[$prefix.'company_employees'][0]] )	){
-											echo $company_employees[$user_data[$prefix.'company_employees'][0]];
+											echo wp_kses_post($company_employees[$user_data[$prefix.'company_employees'][0]]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -856,7 +856,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Annual Income', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Annual Income', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -888,7 +888,7 @@ class Dx_Crm_Public {
 												){
 												echo number_format( $user_data[$prefix.'company_annual_income'][0], 2 );													
 											}else{
-												echo $user_data[$prefix.'company_annual_income'][0];
+												echo wp_kses_post($user_data[$prefix.'company_annual_income'][0]);
 											}
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
@@ -897,7 +897,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Company URL', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Company URL', 'dxcrm'); ?></th>
 								<td>
 								<?php 
 									/**
@@ -912,7 +912,7 @@ class Dx_Crm_Public {
 									        $url = "http://" . $url;
 									    }
 
-										echo "<a href=\"$url\">$url</a>";
+										echo wp_kses_post("<a href=\"$url\">$url</a>");
 									} else {
 										echo '<span class="dashicons dashicons-minus"></span>';
 									}
@@ -920,7 +920,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Customer', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Customer', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 									/**
@@ -937,7 +937,7 @@ class Dx_Crm_Public {
 										$customers_count = count( $customers );
 
 										foreach ( $customers as $customer ) {
-											echo ( --$customers_count > 0 ) ? $customer->post_title . ', ' : $customer->post_title;
+											echo ( --$customers_count > 0 ) ? wp_kses_post($customer->post_title . ', ') : wp_kses_post($customer->post_title);
 										}
 									} else {
 										echo '<span class="dashicons dashicons-minus"></span>';
@@ -983,11 +983,11 @@ class Dx_Crm_Public {
 					?><table class="form-table">
 						<tbody>
 							<tr>
-								<th width="30%"><?php _e('Client Name', 'dxcrm'); ?></th>
+								<th width="30%"><?php esc_html__('Client Name', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										if( ! empty ( $title ) ){
-											echo $title; 
+											echo wp_kses_post($title); 
 										} else {
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}
@@ -995,11 +995,11 @@ class Dx_Crm_Public {
 								</td>
 							</tr>							
 							<tr>
-								<th><?php _e('Project Type', 'dxcrm'); ?></th>
-								<td><?php echo (isset($pro_type_name) && !empty($pro_type_name)) ? $pro_type_name : '<span class="dashicons dashicons-minus"></span>'; ?></td>
+								<th><?php esc_html__('Project Type', 'dxcrm'); ?></th>
+								<td><?php echo (isset($pro_type_name) && !empty($pro_type_name)) ? wp_kses_post($pro_type_name) : '<span class="dashicons dashicons-minus"></span>'; ?></td>
 							</tr>
 							<tr>
-								<th><?php _e('Initial Investment', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Initial Investment', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1020,7 +1020,7 @@ class Dx_Crm_Public {
 												){
 												echo number_format( $initial_investment, 2 );													
 											}else{
-												echo $initial_investment;
+												echo wp_kses_post($initial_investment);
 											}
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
@@ -1029,7 +1029,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Referral', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Referral', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1040,7 +1040,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'cust_referral'][0] ) 
 											&& ! empty ( $user_data[$prefix.'cust_referral'][0] ) ){
-											echo $user_data[$prefix.'cust_referral'][0];
+											echo wp_kses_post($user_data[$prefix.'cust_referral'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -1048,11 +1048,11 @@ class Dx_Crm_Public {
 								</td>							
 							</tr>
 							<tr>
-								<th><?php _e('Contact Date', 'dxcrm'); ?></th>
-								<td><?php echo (isset($user_data[$prefix.'cust_contact_date'][0]) && !empty($user_data[$prefix.'cust_contact_date'][0])) ? $user_data[$prefix.'cust_contact_date'][0] : '<span class="dashicons dashicons-minus"></span>'; ?></td>
+								<th><?php esc_html__('Contact Date', 'dxcrm'); ?></th>
+								<td><?php echo (isset($user_data[$prefix.'cust_contact_date'][0]) && !empty($user_data[$prefix.'cust_contact_date'][0])) ? wp_kses_post($user_data[$prefix.'cust_contact_date'][0]) : '<span class="dashicons dashicons-minus"></span>'; ?></td>
 							</tr>
 							<tr>
-								<th><?php _e('Contact Type', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Contact Type', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1065,7 +1065,7 @@ class Dx_Crm_Public {
 											&& ! empty ( $user_data[$prefix.'contact_type'][0] )
 											&& isset ( $contact_type_list[$user_data[$prefix.'contact_type'][0]] )
 											&& ! empty ( $contact_type_list[$user_data[$prefix.'contact_type'][0]] )	){
-											echo $contact_type_list[$user_data[$prefix.'contact_type'][0]];
+											echo wp_kses_post($contact_type_list[$user_data[$prefix.'contact_type'][0]]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -1073,7 +1073,7 @@ class Dx_Crm_Public {
 								</td>							
 							</tr>
 							<tr>
-								<th><?php _e('Company Role', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Company Role', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1084,7 +1084,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'company_role'][0] ) 
 											&& ! empty ( $user_data[$prefix.'company_role'][0] ) ){
-											echo $user_data[$prefix.'company_role'][0];
+											echo wp_kses_post($user_data[$prefix.'company_role'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -1092,7 +1092,7 @@ class Dx_Crm_Public {
 								</td>							
 							</tr>
 							<tr>
-								<th><?php _e('Email', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Email', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1103,7 +1103,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'cust_email'][0] ) 
 											&& ! empty ($user_data[$prefix.'cust_email'][0]) ){
-											echo $user_data[$prefix.'cust_email'][0];
+											echo wp_kses_post($user_data[$prefix.'cust_email'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -1111,7 +1111,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Phone Number', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Phone Number', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1122,7 +1122,7 @@ class Dx_Crm_Public {
 										*/
 										if( isset( $user_data[$prefix.'contact_number'][0] ) 
 											&& ! empty ($user_data[$prefix.'contact_number'][0]) ){
-											echo $user_data[$prefix.'contact_number'][0];
+											echo wp_kses_post($user_data[$prefix.'contact_number'][0]);
 										} else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}  
@@ -1130,7 +1130,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Customer Skills', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Customer Skills', 'dxcrm'); ?></th>
 								<td>
 								<?php 
 									/**
@@ -1147,16 +1147,16 @@ class Dx_Crm_Public {
 										foreach ( $skills as $skill ) {
 											if ( ! empty ( $skill->slug ) ){
 												if( $i == $total_skills - 1 ){
-													printf( '<span class="customer-skills">%s<span>', $skill->name );
+													printf( '<span class="customer-skills">%s<span>', wp_kses_post($skill->name) );
 												}else{
-													printf( '<span class="customer-skills">%s,<span>', $skill->name );
+													printf( '<span class="customer-skills">%s,<span>', wp_kses_post($skill->name) );
 												}
 											}
 											$i++;
 										}
 									} else {
 										if( is_wp_error( $skills ) ){
-											printf( '<span class="error">%s<span>', $skills->get_error_message() );
+											printf( '<span class="error">%s<span>', wp_kses_post($skills->get_error_message()) );
 										}else{
 											echo '<span class="dashicons dashicons-minus"></span>';
 										}
@@ -1165,7 +1165,7 @@ class Dx_Crm_Public {
 								</td>
 							</tr>
 							<tr>
-								<th><?php _e('Project', 'dxcrm'); ?></th>
+								<th><?php esc_html__('Project', 'dxcrm'); ?></th>
 								<td>
 									<?php 
 										/**
@@ -1182,7 +1182,7 @@ class Dx_Crm_Public {
 											$projects_count = count( $projects );
 
 											foreach ( $projects as $project ) {
-												echo ( --$projects_count > 0 ) ? $project->post_title . ', ' : $project->post_title;
+												echo ( --$projects_count > 0 ) ? wp_kses_post($project->post_title . ', ') : wp_kses_post($project->post_title);
 											}
 										} else {
 											echo '<span class="dashicons dashicons-minus"></span>';

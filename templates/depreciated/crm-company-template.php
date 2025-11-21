@@ -44,7 +44,7 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 ?>
 <div id="primary" class="site-content dx-crm-content">
 	<div id="content" role="main">	
-		<h1><?php _e( 'Add Company' , 'dxcrm' );?></h1>
+		<h1><?php esc_html_e( 'Add Company' , 'dxcrm' );?></h1>
 		<?php
 			/** 
 			 * Check if nonce request is submitted
@@ -107,27 +107,27 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 		<form id="crm-company-form" class="crm-template-form" action="" name="form1" method="POST" enctype="multipart/form-data">
 			<?php wp_nonce_field( 'crm_add_company', 'add_company' ); ?>
 			<fieldset>
-				<legend><?php _e( 'Company Information' , 'dxcrm' );?> </legend>
+				<legend><?php esc_html_e( 'Company Information' , 'dxcrm' );?> </legend>
 				<div class="form-row">
-					<div class="row-left"><label for="company_name"><?php _e( 'Company Name' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="company_name" type="text" name="<?php echo $prefix ;?>company_name" data-validation="required" data-validation-error-msg="<?php _e( 'Please provide Company Name' , 'dxcrm' );?>"/></div>
+					<div class="row-left"><label for="company_name"><?php esc_html_e( 'Company Name' , 'dxcrm' );?> </label></div>
+					<div class="row-right"><input id="company_name" type="text" name="<?php echo esc_attr( $prefix . 'company_name' ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Company Name' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_desc"><?php _e( 'Company Description' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><textarea cols="15" rows="5" id="company_desc" type="text" name="<?php echo $prefix ;?>company_desc" data-validation="required" data-validation-error-msg="<?php _e( 'Please provide Company Description' , 'dxcrm' );?>"></textarea></div>
+					<div class="row-left"><label for="company_desc"><?php esc_html_e( 'Company Description' , 'dxcrm' );?> </label></div>
+					<div class="row-right"><textarea cols="15" rows="5" id="company_desc" type="text" name="<?php echo esc_attr( $prefix . 'company_desc' ); ?>" data-validation="required" data-validation-error-msg="<?php esc_html_e( 'Please provide Company Description' , 'dxcrm' );?>"></textarea></div>
 				</div>					
 				<br class="clear">
 			</fieldset>
 			<fieldset>
-				<legend><?php _e( 'Company Details' , 'dxcrm' );?></legend>	
+				<legend><?php esc_html_e( 'Company Details' , 'dxcrm' );?></legend>	
 				<div class="form-row">
-					<div class="row-left"><label for="company_responsible_person"><?php _e( 'Responsible Person' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="company_responsible_person" type="text" name="<?php echo $prefix ;?>company_responsible_person" data-validation="alphanumeric" data-validation-optional="true" data-validation-error-msg="<?php _e( 'Please provide Responsible Person in Alphanumeric format!' , 'dxcrm' );?>"/></div>
+					<div class="row-left"><label for="company_responsible_person"><?php esc_html_e( 'Responsible Person' , 'dxcrm' );?> </label></div>
+					<div class="row-right"><input id="company_responsible_person" type="text" name="<?php echo esc_attr( $prefix . 'company_responsible_person' ); ?>" data-validation="alphanumeric" data-validation-optional="true" data-validation-error-msg="<?php esc_html_e( 'Please provide Responsible Person in Alphanumeric format!' , 'dxcrm' );?>"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_type"><?php _e( 'Company Type' , 'dxcrm' );?> </label></div>
+					<div class="row-left"><label for="company_type"><?php esc_html_e( 'Company Type' , 'dxcrm' );?> </label></div>
 					<div class="row-right">
 						<?php
 							/** 
@@ -138,16 +138,17 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 							*/
 							$company_type = $dx_crm_model->crm_company_type_dropdown( DX_CRM_META_PREFIX . 'company_type', false );
 							if( is_wp_error( $company_type ) ){
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								echo sprintf( '<p class="crm-error-field">%s</p>', $company_type->get_error_message() );
 							}else{
-								echo $company_type;
+								echo esc_html( $company_type );
 							}
 						?>
 					</div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_industry"><?php _e( 'Company Industry' , 'dxcrm' );?> </label></div>
+					<div class="row-left"><label for="company_industry"><?php esc_html_e( 'Company Industry' , 'dxcrm' );?> </label></div>
 					<div class="row-right">
 						<?php
 							/** 
@@ -158,16 +159,17 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 							*/
 							$company_industry = $dx_crm_model->crm_company_industry_dropdown( DX_CRM_META_PREFIX . 'company_industry', false );
 							if( is_wp_error( $company_industry ) ){
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								echo sprintf( '<p class="crm-error-field">%s</p>', $company_industry->get_error_message() );
 							}else{
-								echo $company_industry;
+								echo esc_html( $company_industry );
 							}
 						?>
 					</div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_employees"><?php _e( 'Company Employees' , 'dxcrm' );?> </label></div>
+					<div class="row-left"><label for="company_employees"><?php esc_html_e( 'Company Employees' , 'dxcrm' );?> </label></div>
 					<div class="row-right">
 						<?php
 							/** 
@@ -178,21 +180,22 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 							*/
 							$company_employees = $dx_crm_model->crm_company_employees_dropdown( DX_CRM_META_PREFIX . 'company_employees', false );
 							if( is_wp_error( $company_employees ) ){
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								echo sprintf( '<p class="crm-error-field">%s</p>', $company_employees->get_error_message() );
 							}else{
-								echo $company_employees;
+								echo esc_html( $company_employees );
 							}
 						?>
 					</div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="annual_income"><?php _e( 'Annual Income' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="annual_income" type="text" name="<?php echo $prefix ;?>annual_income" data-validation="number" data-validation-allowing="float"  data-validation-error-msg="<?php _e( 'Please provide Annual Income!' , 'dxcrm' );?>" data-validation-help="Ex: 201,123.23"/></div>
+					<div class="row-left"><label for="annual_income"><?php esc_html_e( 'Annual Income' , 'dxcrm' );?> </label></div>
+					<div class="row-right"><input id="annual_income" type="text" name="<?php echo esc_attr( $prefix . 'annual_income' ); ?>" data-validation="number" data-validation-allowing="float"  data-validation-error-msg="<?php esc_html_e( 'Please provide Annual Income!' , 'dxcrm' );?>" data-validation-help="Ex: 201,123.23"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_currency"><?php _e( 'Company Currency' , 'dxcrm' );?> </label></div>
+					<div class="row-left"><label for="company_currency"><?php esc_html_e( 'Company Currency' , 'dxcrm' );?> </label></div>
 					<div class="row-right">
 						<?php
 							/** 
@@ -203,38 +206,40 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 							*/
 							$currency = $dx_crm_model->crm_currency_dropdown( DX_CRM_META_PREFIX . 'company_currency', false );
 							if( is_wp_error( $currency ) ){
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								echo sprintf( '<p class="crm-error-field">%s</p>', $currency->get_error_message() );
 							}else{
-								echo $currency;
+								echo esc_html( $currency );
 							}
 						?>
 					</div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_url"><?php _e( 'Company URL' , 'dxcrm' );?> </label></div>
-					<div class="row-right"><input id="company_url" type="text" name="<?php echo $prefix ;?>company_url" data-validation="url" data-validation-error-msg="<?php _e( 'Please provide correct URL format. Ex: httt://www.yoursite.com' , 'dxcrm' );?>" data-validation-optional="true"/></div>
+					<div class="row-left"><label for="company_url"><?php esc_html_e( 'Company URL' , 'dxcrm' );?> </label></div>
+					<div class="row-right"><input id="company_url" type="text" name="<?php echo esc_attr( $prefix . 'company_url' ); ?>" data-validation="url" data-validation-error-msg="<?php esc_html_e( 'Please provide correct URL format. Ex: httt://www.yoursite.com' , 'dxcrm' );?>" data-validation-optional="true"/></div>
 				</div>
 				<br class="clear">
 				<div class="form-row">
-					<div class="row-left"><label for="company_assign_customer"><?php _e( 'Customers' , 'dxcrm' );?> </label></div>						
+					<div class="row-left"><label for="company_assign_customer"><?php esc_html_e( 'Customers' , 'dxcrm' );?> </label></div>						
 					<div class="row-right">
 						<?php
 							if( ! empty ( $user_arr ) ){
-								echo '<select id="company_assign_customer" name="' . $prefix . 'company_assign_customer">'; 																	
+								echo '<select id="company_assign_customer" name="' . esc_attr( $prefix . 'company_assign_customer' ) . '">'; 																	
 									foreach ( $user_arr as $kp => $vp ){
-										echo '<option value="'.$kp.'">'.$vp.'</option>';
+										echo '<option value="' . esc_attr( $kp ) . '">' . esc_html( $vp ) . '</option>';
 									}								
 								echo '</select>';
 							} else {
-								echo sprintf( '<p class="crm-error-field">%s</p>', __( "Please add customer first!" , "dxcrm" ) );
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo sprintf( '<p class="crm-error-field">%s</p>', esc_html__( "Please add customer first!" , "dxcrm" ) );
 							}
 						?>
 					</div>
 				</div>
 			</fieldset>
 			<div class="form-row">
-				<div class="row-left"><input id="submit-company" type="submit" name="<?php echo $prefix ;?>add_company" value="Add Company" /></div>
+				<div class="row-left"><input id="submit-company" type="submit" name="<?php echo esc_attr( $prefix . 'add_company' ); ?>" value="Add Company" /></div>
 			</div>
 			<br class="clear">
 		</form>
@@ -242,7 +247,7 @@ if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
 </div><!-- #primary -->
 	<?php 
 } else {
-    echo sprintf( __( 'Please <a href="%s">log in</a> with admin user to add project', 'dxcrm' ), wp_login_url() );
+    echo sprintf( esc_html__( 'Please <a href="%s">log in</a> with admin user to add project', 'dxcrm' ), esc_url( wp_login_url() ) );
 }
 
 /** 

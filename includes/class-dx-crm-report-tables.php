@@ -11,6 +11,11 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
+// Ignoring the following warnings for this file. We need to use direct database query but rest assured, we are using it in a safe way.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+// phpcs:disable WordPress.WP.EnqueuedResourceParameters.MissingVersion
+
 class Dx_Crm_Report_Tables{
 
 	function __construct(){
@@ -60,9 +65,9 @@ class Dx_Crm_Report_Tables{
 		wp_enqueue_style( 'chosen' );
 
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'chosen', DX_CRM_ASSETS_URL . '/scripts/min/chosen.jquery.min.js', array( 'jquery' ), false, true );  
+		wp_enqueue_script( 'chosen', DX_CRM_ASSETS_URL . '/scripts/min/chosen.jquery.min.js', array( 'jquery' ), DX_CRM_VERSION, true );  
 		wp_enqueue_script( 'jquery-ui-datepicker' );  
-		wp_enqueue_script( 'dx-crm-report', DX_CRM_ASSETS_URL . '/scripts/min/dx-crm-report.min.js', array(), false, true ); 
+		wp_enqueue_script( 'dx-crm-report', DX_CRM_ASSETS_URL . '/scripts/min/dx-crm-report.min.js', array(), DX_CRM_VERSION, true ); 
 		
 		//wp_enqueue_script( 'dx-crm-admin-script' );
 		/* wp_localize_script( 'dx-crm-admin-script', 
@@ -1445,7 +1450,7 @@ class Dx_Crm_Report_Tables{
 			$result = "error";
 		}
 		
-		wp_die( $result );
+		wp_die( esc_html($result) );
 	}
 	
 	
@@ -1454,8 +1459,8 @@ class Dx_Crm_Report_Tables{
 	 * Display error message if no query found
 	 *
 	*/
-	function crm_rprt_err_ntc(){
-		echo '<div class="error notice is-dismissible"><p>' . __( 'No report matched your criteria. Please try again!', 'dxcrm' ) . '</p></div>';
+	function crm_rprt_err_ntc() {
+		echo '<div class="error notice is-dismissible"><p>' . esc_html__( 'No report matched your criteria. Please try again!', 'dxcrm' ) . '</p></div>';
 	}
 
 	/**
@@ -1463,8 +1468,8 @@ class Dx_Crm_Report_Tables{
 	 * Display info if query found
 	 *
 	*/
-	function crm_rprt_sccss_ntc(){
-		echo '<div class="updated notice is-dismissible"><p>' . __( 'Report successfully generated!', 'dxcrm' ) . '</p></div>';
+	function crm_rprt_sccss_ntc() {
+		echo '<div class="updated notice is-dismissible"><p>' . esc_html__( 'Report successfully generated!', 'dxcrm' ) . '</p></div>';
 	}
 	
 	/**

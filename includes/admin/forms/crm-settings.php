@@ -15,7 +15,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
 	
 	echo '<div class="updated" id="message">
-		<p><strong>'. __("Changes Saved Successfully.",'dxcrm') .'</strong></p>
+		<p><strong>'. esc_html__( "Changes Saved Successfully.", 'dxcrm' ) .'</strong></p>
 	</div>';
 }
 	
@@ -24,7 +24,7 @@ if(isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
 <div class="wrap">
     
     <h2 class="crm-settings-title">
-    	<?php _e( 'CRM Settings', 'dxcrm' ); ?>
+    	<?php esc_html_e( 'CRM Settings', 'dxcrm' ); ?>
     </h2>
     	 
 	<form method="POST" action="options.php" enctype="multipart/form-data">

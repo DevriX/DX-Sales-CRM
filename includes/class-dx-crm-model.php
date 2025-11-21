@@ -11,6 +11,10 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
+// Ignoring the following warnings for this file. We need to use direct database query but rest assured, we are using it in a safe way.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+
 /**
  * Script Class
  *
@@ -242,8 +246,8 @@ class Dx_Crm_Model{
 			$prep = $wpdb->prepare( $query,
 									DX_CRM_META_PREFIX . 'project_total',
 									DX_CRM_META_PREFIX . 'joined_project',
-									$queryargs['post_type'],
-									$queryargs['post_status']
+									esc_html( $queryargs['post_type'] ),
+									esc_html( $queryargs['post_status'] )
 								  );
 
 			// set the order/sort and page params
@@ -389,7 +393,7 @@ class Dx_Crm_Model{
 			
 			$cstmrs = '<select name ="' . $nid . $n_arr . '" id="' . $nid . '" ' . $multi . ' class="' . $cselect . '">';
 				foreach ( $cmpgn_cstmrs as $cstmr ) {
-					$cstmrs .= '<option value="' . $cstmr->post_title . '">' . $cstmr->post_title . '</option>';
+					$cstmrs .= '<option value="' . esc_html( $cstmr->post_title ) . '">' . esc_html( $cstmr->post_title ) . '</option>';
 				}
 			$cstmrs .= '</select>';
 			
@@ -767,7 +771,7 @@ class Dx_Crm_Model{
 			$cmpny_type = '<select name ="' . $nid . $n_arr . '" id="' . $nid . '" ' . $multi . ' class="' . $cselect . '">';
 			$cmpny_type .= '<option value="">' . __( 'Please select..' , 'dxcrm' ) . '</option>';	
 				foreach ( $cmpny_types as $key => $value ) {
-					$cmpny_type .= '<option value="' . $key . '">' . $value . '</option>';
+					$cmpny_type .= '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
 				}			
 			$cmpny_type .= '</select>';
 		}else{
@@ -915,12 +919,12 @@ class Dx_Crm_Model{
 		$month = ( ! empty ( $_POST['month'] ) && wp_verify_nonce( $_POST['filter-nonce-activity-log'], 'activity-log-filter' ) ) ? $_POST['month'] : '';
 		$crm_roadmap_months = $dx_crm_roadmap->get_crm_roadmap_months();
 		$html = '<select name="month" id="filter-by-date">';
-		$html .= '<option selected="selected" value="">' . __( 'All Months', 'dxcrm' ) . '</option>';
-		foreach( $crm_roadmap_months as $roadmap_month ) {
-			if( $month === $roadmap_month ){
-				$html .='<option selected="selected" value="' . $roadmap_month . '">'. $roadmap_month .'</option>';
+		$html .= '<option selected="selected" value="">' . esc_html__('All Months', 'dxcrm') . '</option>';
+		foreach($crm_roadmap_months as $roadmap_month) {
+			if($month === $roadmap_month) {
+				$html .= '<option selected="selected" value="' . esc_attr($roadmap_month) . '">' . esc_html($roadmap_month) . '</option>';
 			} else {
-				$html .='<option value="'. $roadmap_month.'">' . $roadmap_month . '</option>';
+				$html .= '<option value="' . esc_attr($roadmap_month) . '">' . esc_html($roadmap_month) . '</option>';
 			}
 		}
 		$html .= '</select>';
@@ -1275,17 +1279,17 @@ class Dx_Crm_Model{
 		
 		$html = '<form method="post">';
 		$html .= '<div class="actions">';
-		$html .= '<input type="hidden" name="page" value='.$page.'>';
-		$html .= '<label for="filter-by-date" class="screen-reader-text">' . __( 'Filter by date', 'dxcrm' ) . '</label>';
+		$html .= '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+		$html .= '<label for="filter-by-date" class="screen-reader-text">' . esc_html__('Filter by date', 'dxcrm') . '</label>';
 		$html .= $this->dx_crm_roadmap_months_dropdown();
-		$html .= '<label class="screen-reader-text" for="users">' . __( 'Filter by users', 'dxcrm' ) . '</label>';
-		$html .= wp_dropdown_users( array( 'echo' => 0, 'show_option_none' => __( 'All users', 'dxcrm' ), 'option_none_value'=>'', 'selected' => $selected ) );
-		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . __( 'Filter', 'dxcrm' ) . '">';
+		$html .= '<label class="screen-reader-text" for="users">' . esc_html__('Filter by users', 'dxcrm') . '</label>';
+		$html .= wp_dropdown_users(array('echo' => 0, 'show_option_none' => esc_html__('All users', 'dxcrm'), 'option_none_value'=>'', 'selected' => $selected));
+		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . esc_attr__('Filter', 'dxcrm') . '">';
 		$html .= '</div>';
-		$html .= wp_nonce_field( 'activity-log-filter', 'filter-nonce-activity-log' );	
+		$html .= wp_nonce_field('activity-log-filter', 'filter-nonce-activity-log');	
 		$html .= '</form>';
 		
-		echo $html;
+		echo wp_kses_post( $html );
 	} 
 
 	/** 
@@ -1299,15 +1303,15 @@ class Dx_Crm_Model{
 
 		$html = '<form method="post">';
 		$html .= '<div class="actions">';
-		$html .= '<input type="hidden" name="page" value='.$page.'>';
-		$html .= '<label class="screen-reader-text" for="users">' . __( 'Search', 'dxcrm' ) . '</label>';
-		$html .= '<input type="text" name="s" placeholder="' . __( 'Search', 'dxcrm' ) . '">';
-		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . __( 'Search', 'dxcrm' ) . '">';
-		$html .= wp_nonce_field( 'activity-log-search', 'search-nonce-activity-log' );	
+		$html .= '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+		$html .= '<label class="screen-reader-text" for="users">' . esc_html__('Search', 'dxcrm') . '</label>';
+		$html .= '<input type="text" name="s" placeholder="' . esc_attr__('Search', 'dxcrm') . '">';
+		$html .= '<input type="submit" name="filter_action" id="post-query-submit" class="button" value="' . esc_attr__('Search', 'dxcrm') . '">';
+		$html .= wp_nonce_field('activity-log-search', 'search-nonce-activity-log');	
 		$html .= '</div>';
 		$html .= '</form>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 	
 	
